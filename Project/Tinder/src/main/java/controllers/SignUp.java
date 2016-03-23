@@ -22,11 +22,12 @@ public class SignUp extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			UserDAO.registerUser(request.getParameter("username"), request.getParameter("password"),
-					request.getParameter("email"), request.getParameter("gender"),
+					request.getParameter("email"), Boolean.parseBoolean(request.getParameter("gender")),
 					Integer.parseInt(request.getParameter("age")));
 			response.sendRedirect("./Home");
 			
 		} catch (Exception e) {
+			e.printStackTrace();
 			request.setAttribute("errorMessage", e.getMessage());
 			request.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(request, response);
 		}

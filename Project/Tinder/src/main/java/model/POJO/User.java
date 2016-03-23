@@ -5,66 +5,59 @@ public class User {
 	private String username;
 	private String password_hash;
 	private int age;
-	private int gender_id;
-	private int desired_gender_id;
-	private String pictures_path;
-	private String avatar_path;
+	private boolean gender_is_male;
+	private String avatar_name;
 	private int location_id;
 	private String email;
 	
-	public User(int id, String username, String password_hash, int age, int gender_id, int desired_gender_id,
-			String pictures_path, String avatar_path, int location_id, String email) {
+	public User(int id, String username, String password_hash, int age, boolean gender_is_male,
+			String avatar_name, int location_id, String email) {
+		super();
 		this.id = id;
 		this.username = username;
 		this.password_hash = password_hash;
 		this.age = age;
-		this.gender_id = gender_id;
-		this.desired_gender_id = desired_gender_id;
-		this.pictures_path = pictures_path;
-		this.avatar_path = avatar_path;
+		this.gender_is_male = gender_is_male;
+		this.avatar_name = avatar_name;
 		this.location_id = location_id;
 		this.email = email;
 	}
-
+	
 	public int getId() {
 		return id;
 	}
-
+	
 	public String getUsername() {
 		return username;
 	}
-
+	
 	public String getPassword_hash() {
 		return password_hash;
 	}
-
+	
 	public int getAge() {
 		return age;
 	}
-
-	public int getGender_id() {
-		return gender_id;
+	
+	public boolean isGender_is_male() {
+		return gender_is_male;
 	}
-
-	public int getDesired_gender_id() {
-		return desired_gender_id;
+	
+	public String getAvatar_name() {
+		return avatar_name;
 	}
-
-	public String getPictures_path() {
-		return pictures_path;
-	}
-
-	public String getAvatar_path() {
-		return avatar_path;
-	}
-
+	
 	public int getLocation_id() {
 		return location_id;
 	}
-
+	
 	public String getEmail() {
 		return email;
 	}
-	
-	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", password_hash=" + password_hash + ", age=" + age
+				+ ", gender_is_male=" + gender_is_male + ", avatar_name=" + avatar_name + ", location_id=" + location_id
+				+ ", email=" + email + "]";
+	}
 }

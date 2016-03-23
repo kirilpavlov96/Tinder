@@ -11,6 +11,7 @@ import com.mysql.jdbc.interceptors.SessionAssociationInterceptor;
 
 import exceptions.DBException;
 import model.DAO.UserDAO;
+import model.POJO.User;
 
 public class SignIn extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -19,12 +20,15 @@ public class SignIn extends HttpServlet {
 			throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
+		String longtitude = request.getParameter("longitude");
+		String latitude = request.getParameter("latitude");
 
 		try {
 			boolean isExisting = UserDAO.isUserExisting(username, password);
 			if(isExisting){
 				HttpSession session = request.getSession(true);
-				session.setAttribute("username", username);
+				User user = UserDAO.getUser(username);
+				session.setAttribute("user", user);
 				response.sendRedirect("./Home");
 			}
 			else{
@@ -32,9 +36,11 @@ public class SignIn extends HttpServlet {
 			}
 			
 		} catch (DBException e) {
+			e.printStackTrace();
 			request.setAttribute("errorMassage", e.getMessage());
 			request.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(request, response);
 		} catch (ServletException e) {
+			e.printStackTrace();
 			request.setAttribute("errorMassage", e.getMessage());
 			request.getRequestDispatcher("WEB-INF/html/login.html").forward(request, response);
 		}
