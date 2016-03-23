@@ -1,0 +1,63 @@
+package model.DAO;
+
+import java.sql.ResultSet;
+import com.mysql.jdbc.Connection;
+import com.mysql.jdbc.PreparedStatement;
+
+import exceptions.DBException;
+import model.*;
+import model.POJO.User;
+
+public class UserDAO {
+
+	private static final String REGISTER_USER = "INSERT INTO tinder.users "
+			+ "values (null,?,?,?,?,null,null,null,null,?);";
+	private static final String IS_USER_EXISTING = "select count(id) from tinder.users where "
+			+ "username = ? and password_hash = ?";
+
+	public static boolean isUserExisting(String username, String password) throws DBException {
+		Connection conn = null;
+		PreparedStatement st = null;
+		boolean result = false;
+		try {
+			conn = ConnectionDispatcher.getConnection();
+			st = (PreparedStatement) conn.prepareStatement(IS_USER_EXISTING);
+			st.setString(1, username);
+			st.setString(2, password);
+			ResultSet rs = st.executeQuery();
+			rs.next();
+			if (rs.getInt(1) > 0) {
+				result = true;
+			}
+		} catch (Exception e) {
+			throw new DBException("Can't check if this user (" + username + ") exists .", e);
+		} finally {
+			ConnectionDispatcher.returnConnection(conn);
+		}
+		return result;
+	}
+
+	
+	//not finished
+	public static void registerUser(String username,String password,String email,String gender,int age) throws DBException {
+		Connection conn = null;
+		PreparedStatement st = null;
+		int genderId = gender.equals("male")?1:2;
+		try {
+			conn = ConnectionDispatcher.getConnection();
+			st = (PreparedStatement) conn.prepareStatement(REGISTER_USER);
+			st.setString(1, username);
+			st.setString(2, password);
+			st.setInt(3, age);
+			st.setInt(4, genderId);
+			st.setString(5, email);
+			st.executeUpdate();
+			
+		} catch (Exception e) {
+			throw new DBException("Something went wrong with the Database.", e);
+			// TODO
+		} finally {
+			ConnectionDispatcher.returnConnection(conn);
+		}
+	}
+}
