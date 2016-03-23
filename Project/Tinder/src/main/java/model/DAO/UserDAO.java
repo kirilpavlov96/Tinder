@@ -78,7 +78,9 @@ public class UserDAO {
 					rs.getBoolean("gender_is_male"),
 					rs.getString("avatar_name"),
 					rs.getInt("location_id"),
-					rs.getString("email"));
+					rs.getString("email"),
+					rs.getBoolean("wants_male"),
+					rs.getBoolean("wants_female"));
 			}
 			return null;
 			

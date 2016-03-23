@@ -3,61 +3,71 @@ package model.POJO;
 public class User {
 	private int id;
 	private String username;
-	private String password_hash;
+	private String passwordHash;
 	private int age;
-	private boolean gender_is_male;
-	private String avatar_name;
-	private int location_id;
+	private boolean genderIsMale;
+	private String avatarName;
+	private int locationId;
 	private String email;
+	private boolean wantsMale;
+	private boolean wantsFemale;
 	
-	public User(int id, String username, String password_hash, int age, boolean gender_is_male,
-			String avatar_name, int location_id, String email) {
+	
+	public User(int id, String username, String passwordHash, int age, boolean genderIsMale, String avatarName,
+			int locationId, String email, boolean wantsMale, boolean wantsFemale) {
 		super();
 		this.id = id;
 		this.username = username;
-		this.password_hash = password_hash;
+		this.passwordHash = passwordHash;
 		this.age = age;
-		this.gender_is_male = gender_is_male;
-		this.avatar_name = avatar_name;
-		this.location_id = location_id;
+		this.genderIsMale = genderIsMale;
+		this.avatarName = avatarName;
+		this.locationId = locationId;
 		this.email = email;
+		this.wantsMale = wantsMale;
+		this.wantsFemale = wantsFemale;
 	}
-	
 	public int getId() {
 		return id;
 	}
-	
+	public void setId(int id) {
+		this.id = id;
+	}
+	public int getLocationId() {
+		return locationId;
+	}
+	public void setLocationId(int locationId) {
+		this.locationId = locationId;
+	}
+	public boolean isWantsMale() {
+		return wantsMale;
+	}
+	public void setWantsMale(boolean wantsMale) {
+		this.wantsMale = wantsMale;
+	}
+	public boolean isWantsFemale() {
+		return wantsFemale;
+	}
+	public void setWantsFemale(boolean wantsFemale) {
+		this.wantsFemale = wantsFemale;
+	}
 	public String getUsername() {
 		return username;
 	}
-	
-	public String getPassword_hash() {
-		return password_hash;
+	public String getPasswordHash() {
+		return passwordHash;
 	}
-	
 	public int getAge() {
 		return age;
 	}
-	
-	public boolean isGender_is_male() {
-		return gender_is_male;
+	public boolean isGenderIsMale() {
+		return genderIsMale;
 	}
-	
-	public String getAvatar_name() {
-		return avatar_name;
+	public String getAvatarName() {
+		return avatarName;
 	}
-	
-	public int getLocation_id() {
-		return location_id;
-	}
-	
 	public String getEmail() {
 		return email;
 	}
-	@Override
-	public String toString() {
-		return "User [id=" + id + ", username=" + username + ", password_hash=" + password_hash + ", age=" + age
-				+ ", gender_is_male=" + gender_is_male + ", avatar_name=" + avatar_name + ", location_id=" + location_id
-				+ ", email=" + email + "]";
-	}
+	
 }
