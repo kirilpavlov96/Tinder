@@ -16,10 +16,10 @@ public class Home extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 		if(session == null){
-			request.getRequestDispatcher("WEB-INF/html/login.html").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(request, response);
 		}
 		else{
-			request.getRequestDispatcher("WEB-INF/html/index.html").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/jsp/index.jsp").forward(request, response);
 		}
 	}
 

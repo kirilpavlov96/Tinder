@@ -22,7 +22,6 @@ public class SignIn extends HttpServlet {
 		String password = request.getParameter("password");
 		String longtitude = request.getParameter("longitude");
 		String latitude = request.getParameter("latitude");
-
 		try {
 			boolean isExisting = UserDAO.isUserExisting(username, password);
 			if(isExisting){
@@ -42,7 +41,7 @@ public class SignIn extends HttpServlet {
 		} catch (ServletException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMassage", e.getMessage());
-			request.getRequestDispatcher("WEB-INF/html/login.html").forward(request, response);
+			request.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(request, response);
 		}
 	}
 	

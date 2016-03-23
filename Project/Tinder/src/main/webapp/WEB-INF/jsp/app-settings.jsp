@@ -50,65 +50,7 @@
 
 			      		<div class="main_container">
 
-			      			<div class="col-md-3 left_col">
-			      				<div class="left_col scroll-view">
-
-			      					<div class="navbar nav_title" style="border: 0;">
-			      						<a href="index.html" class="site_title"><i class="fa fa-fire"></i> <span>Tinder</span></a>
-			      					</div>
-			      					<div class="clearfix"></div>
-
-			      					<!-- menu prile quick info -->
-			      					<a href="profile.html">
-		      					<div class="profile">
-		      						<div class="profile_pic">
-		      							<img src="images/img.jpg" alt="..." class="img-circle profile_img">
-		      						</div>
-		      						<div class="profile_info">
-		      							<span>Welcome,</span>
-		      							<h2>Vancho Bozduganski</h2>
-		      						</div>
-		      					</div>
-		      					</a>
-			      					<!-- /menu prile quick info -->
-
-			      					<br />
-
-			      					<!-- sidebar menu -->
-			      					<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-
-			      						<div class="menu_section">
-			      							<h3>General</h3>
-			      							<ul class="nav side-menu">
-			      								<li><a href="messages.html"><i class="fa fa-comment"></i> Messages </a>
-			      								</li>
-			      								<li><a href="discovery-settings.html"><i class="fa fa-heart-o"></i> Discovery settings</a>
-			      								</li>
-			      								<li><a href="app-settings.html"><i class="fa fa-fire"></i> App settings</span></a>
-			      								</li>
-			      								<li><a><i class="fa fa-info"></i> Help and Info <span class="fa fa-chevron-down"></span></a>
-			      									<ul class="nav child_menu" style="display: none">
-			      										<li><a href=#>Some setting here</a>
-			      										</li>
-			      										<li><a href=#>Some setting here</a>
-			      										</li>
-			      									</ul>
-			      								</li>
-			      							</ul>
-			      						</div>
-
-			      					</div>
-			      					<!-- /sidebar menu -->
-
-			      					<!-- /menu footer buttons -->
-			      					<div class="sidebar-footer hidden-small">
-			      						<a data-toggle="tooltip" data-placement="top" title="Logout">
-			      							<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-			      						</a>
-			      					</div>
-			      					<!-- /menu footer buttons -->
-			      				</div>
-			      			</div>
+			      			<jsp:include page="sideMenu.jsp" />
 
 			      			<!-- top navigation -->
 			      			<div class="top_nav">
@@ -213,34 +155,22 @@
 			      									<!-- form grid slider -->
 			      									<div class="x_panel" style="">
 			      										<div class="x_title">
-			      											<h2>Discovery settings</h2>
+			      											<h2>App settings</h2>
 			      											<div class="clearfix"></div>
 			      										</div>
 			      										<div class="x_content">
 			      											<div class="row grid_slider">
-			      											<div class="col-md-6 col-sm-6 col-xs-12">
-			      													Discovery: 
-			      													<div class="pull-right"><input type="checkbox" class="flat">
-			      													</div>
-			      													<p><small>Disabling discovery prevents others from seeing your card</small></p>
-
-			      												</div>
-			      												<div class="col-md-6 col-sm-6 col-xs-12">
-			      													<p>Show me: </p>
-			      													Men: <div class="pull-right"><input type="checkbox" class="flat">
+			      											<div class="col-md-12 col-sm-12 col-xs-12">
+			      													<p>Notifications: </p>
+			      													New Matches: <div class="pull-right"><input type="checkbox" class="flat">
 			      													</div>
 			      													<p></p>
-			      													Women: <div class="pull-right"><input type="checkbox" class="flat">
+			      													Messages: <div class="pull-right"><input type="checkbox" class="flat">
 			      													</div>
-			      												</div>
-			      												<div class="col-md-6 col-sm-6 col-xs-12">
-			      													<p>Show ages: </p>
-			      													<input type="text" id="range" value="" name="range" />
-			      												</div>
-			      												<div class="col-md-6 col-sm-6 col-xs-12">
-			      													<p>Search distance: </p>
-			      													<input type="text" class="range_time24" value="" name="range" />
-			      												</div>
+			      													<p></p>
+			      													Message Likes: <div class="pull-right"><input type="checkbox" class="flat">
+			      													</div>
+			      													</div>
 			      												<div class="col-md-12 col-sm-12 col-xs-12">
 			      													<p></p>
 			      													 <div class="pull-right"><button type="submit" class="btn btn-success">Apply</button>
