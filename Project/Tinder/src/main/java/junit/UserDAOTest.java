@@ -27,6 +27,7 @@ public class UserDAOTest {
 	@Test
 	public void testRegister() {
 		try {
+			deleteUser();
 			assertFalse(UserDAO.isUserExisting(TEST_USERNAME, TEST_PASSWORD));
 			UserDAO.registerUser(TEST_USERNAME, TEST_PASSWORD, TEST_MAIL, TEST_GENDER, TEST_AGE);
 			assertTrue(UserDAO.isUserExisting(TEST_USERNAME, TEST_PASSWORD));
@@ -66,6 +67,7 @@ public class UserDAOTest {
 	
 	@Test
 	public void testChangeLocation() throws DBException{
+		deleteUser();
 		UserDAO.registerUser(TEST_USERNAME, TEST_PASSWORD, TEST_MAIL, TEST_GENDER, TEST_AGE);
 		UserDAO.setLocation(TEST_USERNAME, TEST_LATITUDE, TEST_LONGITUDE);
 		User testUser = UserDAO.getUser(TEST_USERNAME);
