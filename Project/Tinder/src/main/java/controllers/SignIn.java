@@ -25,7 +25,7 @@ public class SignIn extends HttpServlet {
 		String longitude = request.getParameter("longitude");
 		String latitude = request.getParameter("latitude");
 		try {
-			boolean isExisting = UserDAO.isUserExisting(username, password);
+			boolean isExisting = UserDAO.isUserAndPassExisting(username, password);
 			if (isExisting) {
 				HttpSession session = request.getSession();
 				UserDAO.setLocation(username, Double.parseDouble(latitude), Double.parseDouble(longitude));
@@ -35,7 +35,7 @@ public class SignIn extends HttpServlet {
 				session.setAttribute("fistCandidatePhotos", new LinkedList<String>());
 				response.sendRedirect("./Home");
 			} else {
-				throw new ServletException("Ivalid username or password!");
+				throw new ServletException("Ivalid username or password! :" + username + " " + password);
 			}
 
 		} catch (DBException e) {

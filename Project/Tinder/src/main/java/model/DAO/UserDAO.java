@@ -1,22 +1,24 @@
 package model.DAO;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
 import exceptions.DBException;
-import model.*;
 import model.POJO.User;
 
 public class UserDAO {
 
 	private static final String REGISTER_USER = "INSERT INTO tinder.users "
 			+ "values(null,?,?,?,?,'default',?,false,false,null,null,null,null,null);";
-	private static final String IS_USER_EXISTING = "select count(id) from tinder.users where "
+	private static final String IS_USER_AND_PASS_EXISTING = "select count(id) from tinder.users where "
 			+ "username = ? and password_hash = ?";
+	private static final String IS_USER_EXISTING = "select count(id) from tinder.users where "
+			+ "username = ?";
 	private static final String GET_USER = "select * from tinder.users where username = ?";
 	private static final String CHANGE_LOCATION = "UPDATE tinder.users " + "SET latitude = ?, longitude = ? "
 			+ "WHERE id = ?;";
@@ -25,6 +27,29 @@ public class UserDAO {
 			+ " <= ? limit 3;";
 	private static final String FIND_PICTURES_OF_USER = "SELECT * FROM tinder.pictures where owner_id = ?;";
 
+	public static boolean isUserAndPassExisting(String username, String password) throws DBException {
+		Connection conn = null;
+		PreparedStatement st = null;
+		boolean result = false;
+		try {
+			conn = ConnectionDispatcher.getConnection();
+			st = conn.prepareStatement(IS_USER_AND_PASS_EXISTING);
+			st.setString(1, username);
+			st.setString(2, calculateHash(password));
+			ResultSet rs = st.executeQuery();
+			rs.next();
+			System.out.println(rs.getInt(1));
+			if (rs.getInt(1) == 1) {
+				result = true;
+			}
+		} catch (Exception e) {
+			throw new DBException("Can't check if this user (" + username + ") exists .", e);
+		} finally {
+			ConnectionDispatcher.returnConnection(conn);
+		}
+		return result;
+	}
+	
 	public static boolean isUserExisting(String username, String password) throws DBException {
 		Connection conn = null;
 		PreparedStatement st = null;
@@ -36,6 +61,7 @@ public class UserDAO {
 			st.setString(2, password);
 			ResultSet rs = st.executeQuery();
 			rs.next();
+			System.out.println(rs.getInt(1));
 			if (rs.getInt(1) == 1) {
 				result = true;
 			}
@@ -52,10 +78,11 @@ public class UserDAO {
 		Connection conn = null;
 		PreparedStatement st = null;
 		try {
+			calculateHash(password);
 			conn = ConnectionDispatcher.getConnection();
 			st = (PreparedStatement) conn.prepareStatement(REGISTER_USER);
 			st.setString(1, username);
-			st.setString(2, password);
+			st.setString(2, calculateHash(password));
 			st.setInt(3, age);
 			st.setBoolean(4, gender);
 			st.setString(5, email);
@@ -68,6 +95,23 @@ public class UserDAO {
 		} finally {
 			ConnectionDispatcher.returnConnection(conn);
 		}
+	}
+
+	public static String calculateHash(String password) throws NoSuchAlgorithmException {
+		MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
+		digest.update(password.getBytes());
+		byte[] hash = digest.digest();
+		StringBuilder hexString = new StringBuilder(32);
+		
+		for (int i = 0; i < hash.length; i++) {
+		    if ((0xff & hash[i]) < 0x10) {
+		        hexString.append("0"
+		                + Integer.toHexString((0xFF & hash[i])));
+		    } else {
+		        hexString.append(Integer.toHexString(0xFF & hash[i]));
+		    }
+		}
+		return hexString.toString();
 	}
 
 	public static boolean setLocation(String username, double latitude, double longitude) throws DBException {

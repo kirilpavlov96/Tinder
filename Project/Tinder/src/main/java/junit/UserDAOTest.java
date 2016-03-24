@@ -28,9 +28,9 @@ public class UserDAOTest {
 	public void testRegister() {
 		try {
 			deleteUser();
-			assertFalse(UserDAO.isUserExisting(TEST_USERNAME, TEST_PASSWORD));
+			assertFalse(UserDAO.isUserAndPassExisting(TEST_USERNAME, TEST_PASSWORD));
 			registerUserWithTestParam();
-			assertTrue(UserDAO.isUserExisting(TEST_USERNAME, TEST_PASSWORD));
+			assertTrue(UserDAO.isUserAndPassExisting(TEST_USERNAME, TEST_PASSWORD));
 			User testUser = UserDAO.getUser(TEST_USERNAME);
 			//System.out.println(testUser);
 			assertEquals(TEST_USERNAME, testUser.getUsername());
@@ -55,7 +55,7 @@ public class UserDAOTest {
 		Connection conn = null;
 		Statement st = null;
 		try {
-			if (UserDAO.isUserExisting(TEST_USERNAME, TEST_PASSWORD)) {
+			if (UserDAO.isUserAndPassExisting(TEST_USERNAME, TEST_PASSWORD)) {
 				conn = ConnectionDispatcher.getConnection();
 				st = conn.createStatement();
 				st.executeUpdate(DELETE_TEST_USER);
