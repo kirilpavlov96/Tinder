@@ -1,4 +1,4 @@
-<%@page import="controllers.Geolock"%>
+
 <%@page
 	import="com.mysql.jdbc.interceptors.SessionAssociationInterceptor"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"

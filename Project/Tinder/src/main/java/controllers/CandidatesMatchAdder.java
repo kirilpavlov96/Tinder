@@ -29,6 +29,9 @@ public class CandidatesMatchAdder extends HttpServlet {
 			} catch (DBException e) {
 				e.printStackTrace();
 			}
+			for (User user : newUsers) {
+				System.out.println(user);
+			}
 			if(newUsers == null) return;
 			users.addAll(newUsers);
 			session.setAttribute("userCandidates", users);
