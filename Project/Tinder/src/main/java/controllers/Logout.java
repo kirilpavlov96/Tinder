@@ -17,9 +17,5 @@ public class Logout extends HttpServlet {
 		}
 		response.sendRedirect("/Tinder");
 	}
-	
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		doGet(request, response);
-	}
 
 }
