@@ -25,7 +25,7 @@ public class CandidatesMatchAdder extends HttpServlet {
 			List<User> users = (List<User>) session.getAttribute("userCandidates");
 			List<User> newUsers = null;
 			try {
-				newUsers = UserDAO.getFirstThreeNearbyUsers((String)session.getAttribute("username"));
+				newUsers = UserDAO.getFirstThreeNearbyUsers(((User)session.getAttribute("user")).getUsername());
 			} catch (DBException e) {
 				e.printStackTrace();
 			}

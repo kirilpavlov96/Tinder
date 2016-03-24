@@ -171,7 +171,7 @@ public class UserDAO {
 				return new User(rs.getInt("id"), rs.getString("username"), rs.getString("password_hash"),
 						rs.getInt("age"), rs.getBoolean("gender_is_male"), rs.getString("avatar_name"),
 						rs.getString("email"), rs.getBoolean("wants_male"), rs.getBoolean("wants_female"),
-						rs.getDouble("longitude"), rs.getDouble("latitude"),rs.getInt("search_distance"),
+						rs.getDouble("latitude"),rs.getDouble("longitude"),rs.getInt("search_distance"),
 						rs.getInt("max_desired_age"),rs.getInt("min_desired_age"));
 			}
 			return null;
