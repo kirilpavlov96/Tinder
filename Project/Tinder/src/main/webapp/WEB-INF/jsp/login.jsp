@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page session="false" %>
+<%@ page session="false"%>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -32,7 +32,7 @@
 
 </head>
 
-<body style="background: #F7F7F7;"  onload="getLocation();">
+<body style="background: #F7F7F7;" onload="getLocation();">
 
 	<div class="">
 		<a class="hiddenanchor" id="toregister"></a> <a class="hiddenanchor"
@@ -53,9 +53,10 @@
 						</div>
 						<div>
 							<input id="hiddenLatitude" type="hidden" name="latitude" value="">
-							<input id="hiddenLongitude" type="hidden" name="longitude" value="">
+							<input id="hiddenLongitude" type="hidden" name="longitude"
+								value="">
 						</div>
-						 <input type="submit" class="btn btn-default submit" value="Log in">
+						<input type="submit" class="btn btn-default submit" value="Log in">
 						<div class="clearfix"></div>
 						<div class="separator">
 
@@ -92,9 +93,13 @@
 							<input type="password" name="password" class="form-control"
 								placeholder="Password" required />
 						</div>
-						<div>
-							<input type="text" name="gender" class="form-control"
-								placeholder="Gender" required />
+						<div >
+							<select 
+								class="form-control" name="gender">
+								<option>male</option>
+								<option>female</option>
+							</select> 
+							<br>
 						</div>
 						<div>
 							<input type="number" name="age" class="form-control"
@@ -134,8 +139,10 @@
 		function setLocation(position) {
 			var latitude = position.coords.latitude;
 			var longitude = position.coords.longitude;
-			document.getElementById("hiddenLatitude").setAttribute("value", latitude);
-			document.getElementById("hiddenLongitude").setAttribute("value", longitude);
+			document.getElementById("hiddenLatitude").setAttribute("value",
+					latitude);
+			document.getElementById("hiddenLongitude").setAttribute("value",
+					longitude);
 		}
 
 		function errorHandler(err) {

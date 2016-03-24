@@ -21,8 +21,10 @@ public class SignUp extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		try {
-			UserDAO.registerUser(request.getParameter("username"), request.getParameter("password"),
-					request.getParameter("email"), Boolean.parseBoolean(request.getParameter("gender")),
+			UserDAO.registerUser(request.getParameter("username"),
+					request.getParameter("password"),
+					request.getParameter("email"),
+					parseGender(request.getParameter("gender")),
 					Integer.parseInt(request.getParameter("age")));
 			response.sendRedirect("./Home");
 			
@@ -31,6 +33,13 @@ public class SignUp extends HttpServlet {
 			request.setAttribute("errorMessage", e.getMessage());
 			request.getRequestDispatcher("WEB-INF/jsp/error.jsp").forward(request, response);
 		}
+	}
+	
+	private boolean parseGender(String gender){
+		if(gender.equals("male")){
+			return true;
+		}
+		return false;
 	}
 
 }

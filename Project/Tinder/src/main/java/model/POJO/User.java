@@ -13,6 +13,12 @@ public class User {
 	private boolean wantsFemale;
 	
 	
+	@Override
+	public String toString() {
+		return "User [id=" + id + ", username=" + username + ", passwordHash=" + passwordHash + ", age=" + age
+				+ ", genderIsMale=" + genderIsMale + ", avatarName=" + avatarName + ", locationId=" + locationId
+				+ ", email=" + email + ", wantsMale=" + wantsMale + ", wantsFemale=" + wantsFemale + "]";
+	}
 	public User(int id, String username, String passwordHash, int age, boolean genderIsMale, String avatarName,
 			int locationId, String email, boolean wantsMale, boolean wantsFemale) {
 		super();

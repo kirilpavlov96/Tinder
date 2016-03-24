@@ -25,7 +25,7 @@ public class SignIn extends HttpServlet {
 		try {
 			boolean isExisting = UserDAO.isUserExisting(username, password);
 			if(isExisting){
-				HttpSession session = request.getSession(true);
+				HttpSession session = request.getSession();
 				User user = UserDAO.getUser(username);
 				session.setAttribute("user", user);
 				response.sendRedirect("./Home");
