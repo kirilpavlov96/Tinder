@@ -2,6 +2,7 @@ package junit;
 
 import static org.junit.Assert.*;
 
+import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.Statement;
 
@@ -25,7 +26,7 @@ public class UserDAOTest {
 	private static final double LAMBDA = 0.1;
 
 	@Test
-	public void testRegister() {
+	public void testRegister() throws NoSuchAlgorithmException {
 		try {
 			deleteUser();
 			assertFalse(UserDAO.isUserAndPassExisting(TEST_USERNAME, TEST_PASSWORD));
@@ -34,7 +35,7 @@ public class UserDAOTest {
 			User testUser = UserDAO.getUser(TEST_USERNAME);
 			//System.out.println(testUser);
 			assertEquals(TEST_USERNAME, testUser.getUsername());
-			assertEquals(TEST_PASSWORD, testUser.getPasswordHash());
+			assertEquals(UserDAO.calculateHash(TEST_PASSWORD), testUser.getPasswordHash());
 			assertEquals(TEST_MAIL, testUser.getEmail());
 			assertEquals(TEST_GENDER, testUser.isGenderIsMale());
 			assertEquals(TEST_AGE, testUser.getAge());
