@@ -20,12 +20,15 @@ public class SignIn extends HttpServlet {
 			throws ServletException, IOException {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
-		String longtitude = request.getParameter("longitude");
+		String longitude = request.getParameter("longitude");
 		String latitude = request.getParameter("latitude");
 		try {
 			boolean isExisting = UserDAO.isUserExisting(username, password);
 			if(isExisting){
 				HttpSession session = request.getSession();
+				UserDAO.setLocation(username,
+						Double.parseDouble(latitude),
+						Double.parseDouble(longitude));
 				User user = UserDAO.getUser(username);
 				session.setAttribute("user", user);
 				response.sendRedirect("./Home");

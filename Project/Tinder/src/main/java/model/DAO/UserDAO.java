@@ -17,8 +17,7 @@ public class UserDAO {
 	private static final String IS_USER_EXISTING = "select count(id) from tinder.users where "
 			+ "username = ? and password_hash = ?";
 	private static final String GET_USER = "select * from tinder.users where username = ?";
-	private static final String CHANGE_LOCATION = "UPDATE tinder.users "
-			+ "SET longitude = ?, latitude = ? "
+	private static final String CHANGE_LOCATION = "UPDATE tinder.users " + "SET longitude = ?, latitude = ? "
 			+ "WHERE id = ?;";
 
 	public static boolean isUserExisting(String username, String password) throws DBException {
@@ -87,20 +86,19 @@ public class UserDAO {
 		} finally {
 			ConnectionDispatcher.returnConnection(conn);
 		}
-		
+
 		return false;
 	}
-	
-	public static List<User> getFirstThreeNearbyUsers(String username){
-		// TODO: 
+
+	public static List<User> getFirstThreeNearbyUsers(String username) {
+		// TODO:
 		return null;
 	}
-	
-public static List<String> getAllPhotosOfUser(String username){
-	// TODO:
-	return null;
-	}
 
+	public static List<String> getAllPhotosOfUser(String username) {
+		// TODO:
+		return null;
+	}
 
 	public static User getUser(String username) throws DBException {
 		Connection conn = null;
@@ -113,8 +111,9 @@ public static List<String> getAllPhotosOfUser(String username){
 			rs = st.executeQuery();
 			if (rs.next()) {
 				return new User(rs.getInt("id"), rs.getString("username"), rs.getString("password_hash"),
-						rs.getInt("age"), rs.getBoolean("gender_is_male"), rs.getString("avatar_name"), rs.getString("email"), rs.getBoolean("wants_male"),
-						rs.getBoolean("wants_female"),rs.getDouble("longitude"),rs.getDouble("latitude"));
+						rs.getInt("age"), rs.getBoolean("gender_is_male"), rs.getString("avatar_name"),
+						rs.getString("email"), rs.getBoolean("wants_male"), rs.getBoolean("wants_female"),
+						rs.getDouble("longitude"), rs.getDouble("latitude"));
 			}
 			return null;
 
