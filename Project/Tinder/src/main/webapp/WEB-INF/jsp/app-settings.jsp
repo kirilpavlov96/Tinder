@@ -77,16 +77,19 @@
 											<div class="row grid_slider">
 												<div class="col-md-12 col-sm-12 col-xs-12">
 													<p>Notifications:</p>
+													<hr>
 													New Matches:
 													<div class="pull-right">
 														<input type="checkbox" class="flat">
 													</div>
 													<p></p>
+													<hr>
 													Messages:
 													<div class="pull-right">
 														<input type="checkbox" class="flat">
 													</div>
 													<p></p>
+													<hr>
 													Message Likes:
 													<div class="pull-right">
 														<input type="checkbox" class="flat">
@@ -94,6 +97,7 @@
 												</div>
 												<div class="col-md-12 col-sm-12 col-xs-12">
 													<p></p>
+													<hr>
 													<div class="pull-right">
 														<button type="submit" class="btn btn-success">Apply</button>
 													</div>
@@ -113,10 +117,9 @@
 					</div>
 
 				</div>
-				<br />
-				
+
 				<jsp:include page="footer.jsp" />
-				
+
 			</div>
 			<!-- /page content -->
 		</div>

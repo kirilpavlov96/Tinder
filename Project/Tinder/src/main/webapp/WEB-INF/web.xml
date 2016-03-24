@@ -52,6 +52,18 @@
   	<description></description>
   	<servlet-class>controllers.Profile</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>CandidatesMatchAdder</servlet-name>
+  	<display-name>CandidatesMatchAdder</display-name>
+  	<description></description>
+  	<servlet-class>controllers.CandidatesMatchAdder</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>FirstCandidatePhotosAdder</servlet-name>
+  	<display-name>FirstCandidatePhotosAdder</display-name>
+  	<description></description>
+  	<servlet-class>controllers.FirstCandidatePhotosAdder</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>SignIn</servlet-name>
   	<url-pattern>/SignIn</url-pattern>
@@ -87,5 +99,13 @@
   <servlet-mapping>
   	<servlet-name>Profile</servlet-name>
   	<url-pattern>/Profile</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>CandidatesMatchAdder</servlet-name>
+  	<url-pattern>/CandidatesMatchAdder</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>FirstCandidatePhotosAdder</servlet-name>
+  	<url-pattern>/FirstCandidatePhotosAdder</url-pattern>
   </servlet-mapping>
 </web-app>
