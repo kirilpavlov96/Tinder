@@ -12,9 +12,13 @@ public class User {
 	private boolean wantsFemale;
 	private double latitude;
 	private double longitude;
+	private int searchDistance;
+	private int maxDesiredAge;
+	private int minDesiredAge;
 
 	public User(int id, String username, String passwordHash, int age, boolean genderIsMale, String avatarName,
-			String email, boolean wantsMale, boolean wantsFemale, double latitude, double longitude) {
+			String email, boolean wantsMale, boolean wantsFemale, double latitude, double longitude, int searchDistance,
+			int maxDesiredAge, int minDesiredAge) {
 		super();
 		this.id = id;
 		this.username = username;
@@ -27,6 +31,33 @@ public class User {
 		this.wantsFemale = wantsFemale;
 		this.latitude = latitude;
 		this.longitude = longitude;
+		this.searchDistance = searchDistance;
+		this.maxDesiredAge = maxDesiredAge;
+		this.minDesiredAge = minDesiredAge;
+	}
+
+	public int getSearchDistance() {
+		return searchDistance;
+	}
+
+	public void setSearchDistance(int searchDistance) {
+		this.searchDistance = searchDistance;
+	}
+
+	public int getMaxDesiredAge() {
+		return maxDesiredAge;
+	}
+
+	public void setMaxDesiredAge(int maxDesiredAge) {
+		this.maxDesiredAge = maxDesiredAge;
+	}
+
+	public int getMinDesiredAge() {
+		return minDesiredAge;
+	}
+
+	public void setMinDesiredAge(int minDesiredAge) {
+		this.minDesiredAge = minDesiredAge;
 	}
 
 	public String getAvatarName() {

@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.Statement;
+import java.util.LinkedList;
 import java.util.List;
 
 import exceptions.DBException;
@@ -13,12 +14,21 @@ import model.POJO.User;
 public class UserDAO {
 
 	private static final String REGISTER_USER = "INSERT INTO tinder.users "
-			+ "values(null,?,?,?,?,'default',?,false,false,null,null);";
+			+ "values(null,?,?,?,?,'default',?,false,false,null,null,null,null,null);";
 	private static final String IS_USER_EXISTING = "select count(id) from tinder.users where "
 			+ "username = ? and password_hash = ?";
 	private static final String GET_USER = "select * from tinder.users where username = ?";
-	private static final String CHANGE_LOCATION = "UPDATE tinder.users " + "SET longitude = ?, latitude = ? "
+	private static final String CHANGE_LOCATION = "UPDATE tinder.users " 
+	+ "SET latitude = ?, longitude = ? "
 			+ "WHERE id = ?;";
+	private static final String FIND_CLOSE_USERS = 
+			"select * from tinder.users "
+			+ "where age between ? and ? and "
+			+ "6371.009*sqrt(pow(radians(? - latitude),2) "
+			+ "+ pow(cos((? + latitude)/2)*(radians(? - longitude)),2))"
+			+ " <= ? limit 3;";
+	private static final String FIND_PICTURES_OF_USER = 
+			"SELECT * FROM tinder.pictures where owner_id = ?;";
 
 	public static boolean isUserExisting(String username, String password) throws DBException {
 		Connection conn = null;
@@ -87,17 +97,65 @@ public class UserDAO {
 			ConnectionDispatcher.returnConnection(conn);
 		}
 
-		return false;
+		return true;
 	}
 
-	public static List<User> getFirstThreeNearbyUsers(String username) {
-		// TODO:
-		return null;
+	public static List<User> getFirstThreeNearbyUsers(String username) throws DBException {
+		User toFindFor = getUser(username);
+		int maxAge = toFindFor.getMaxDesiredAge();
+		int minAge = toFindFor.getMinDesiredAge();
+		int searchDistance = toFindFor.getSearchDistance();
+		double latitude = toFindFor.getLatitude();
+		double longitude = toFindFor.getLongitude();
+		Connection conn = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		List<User> toReturn = new LinkedList<User>();
+		try {
+			conn = ConnectionDispatcher.getConnection();
+			st = conn.prepareStatement(FIND_CLOSE_USERS);
+			st.setInt(1, minAge);
+			st.setInt(2, maxAge);
+			st.setDouble(3, latitude);
+			st.setDouble(4, latitude);
+			st.setDouble(5, longitude);
+			st.setInt(6, searchDistance);
+			rs = st.executeQuery();
+			
+			while(rs.next()){
+				toReturn.add(UserDAO.getUser(rs.getString("username")));
+			}
+		} catch (Exception e) {
+			throw new DBException("Something went wrong with the Database.", e);
+			// TODO
+		} finally {
+			ConnectionDispatcher.returnConnection(conn);
+		}
+
+		return toReturn;
 	}
 
-	public static List<String> getAllPhotosOfUser(String username) {
-		// TODO:
-		return null;
+	public static List<String> getAllPhotosOfUser(String username) throws DBException {
+		int idToSearchFor = UserDAO.getUser(username).getId();
+		Connection conn = null;
+		PreparedStatement st = null;
+		ResultSet rs = null;
+		List<String> toReturn = new LinkedList<String>();
+		try {
+			conn = ConnectionDispatcher.getConnection();
+			st = conn.prepareStatement(FIND_PICTURES_OF_USER);
+			st.setInt(1, idToSearchFor);
+			rs = st.executeQuery();
+			while(rs.next()){
+				toReturn.add(rs.getString("name"));
+			}
+		} catch (Exception e) {
+			throw new DBException("Something went wrong with the Database.", e);
+			// TODO
+		} finally {
+			ConnectionDispatcher.returnConnection(conn);
+		}
+		return toReturn;
 	}
 
 	public static User getUser(String username) throws DBException {
@@ -113,7 +171,8 @@ public class UserDAO {
 				return new User(rs.getInt("id"), rs.getString("username"), rs.getString("password_hash"),
 						rs.getInt("age"), rs.getBoolean("gender_is_male"), rs.getString("avatar_name"),
 						rs.getString("email"), rs.getBoolean("wants_male"), rs.getBoolean("wants_female"),
-						rs.getDouble("longitude"), rs.getDouble("latitude"));
+						rs.getDouble("longitude"), rs.getDouble("latitude"),rs.getInt("search_distance"),
+						rs.getInt("max_desired_age"),rs.getInt("min_desired_age"));
 			}
 			return null;
 
