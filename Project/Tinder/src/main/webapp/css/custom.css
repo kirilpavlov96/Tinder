@@ -6365,3 +6365,36 @@ ul.notifications {
 .copyright-info {
     padding: 8px 0;
 }
+
+.imageWrapper{
+	margin: 0 auto;
+	width: 50%;
+}
+
+.imageWrapper img {
+	width: 100%;
+}
+
+.imageWrapper button {
+	border-radius: 18px;
+	width: 48%;
+	height: 50px;
+}
+
+.LDButton {
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    margin: 4px 2px;
+    -webkit-transition-duration: 0.4s; 
+    transition-duration: 0.4s;
+    cursor: pointer;
+    background-color: white; 
+    color: black; 
+    border: 2px solid #73879C;
+}
+
+.LDButton:hover {
+    background-color: #73879C;
+    color: white;
+}
