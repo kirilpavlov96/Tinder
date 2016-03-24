@@ -22,7 +22,9 @@ public class CandidatesMatchAdder extends HttpServlet {
 		}
 		else{
 			List<User> users = (List<User>) session.getAttribute("userCandidates");
-			users.addAll(UserDAO.getFirstThreeNearbyUsers((String)session.getAttribute("username")));
+			List<User> newUsers = UserDAO.getFirstThreeNearbyUsers((String)session.getAttribute("username"));
+			if(newUsers == null) return;
+			users.addAll(newUsers);
 			session.setAttribute("userCandidates", users);
 		}
 	}

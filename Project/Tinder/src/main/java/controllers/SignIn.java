@@ -1,6 +1,8 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.LinkedList;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,6 +33,8 @@ public class SignIn extends HttpServlet {
 						Double.parseDouble(longitude));
 				User user = UserDAO.getUser(username);
 				session.setAttribute("user", user);
+				session.setAttribute("userCandidates", new LinkedList<User>());
+				session.setAttribute("fistCandidatePhotos", new LinkedList<String>());
 				response.sendRedirect("./Home");
 			}
 			else{

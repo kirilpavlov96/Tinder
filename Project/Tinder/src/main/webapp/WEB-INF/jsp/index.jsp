@@ -1,3 +1,4 @@
+<%@page import="controllers.Geolock"%>
 <%@page
 	import="com.mysql.jdbc.interceptors.SessionAssociationInterceptor"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
@@ -44,7 +45,7 @@
 </head>
 
 
-<body class="nav-md" onload="worker();">
+<body class="nav-md" >
 	<div class="container body">
 
 		<div class="main_container">
@@ -431,10 +432,10 @@
 	<script>
 		NProgress.done();
 	</script>
-	<script>
+	<script type="text/javascript">
 	(function worker() {
 		  $.ajax({
-			    url: '/CandidatesMatchAdder', 
+			    url: 'CandidatesMatchAdder', 
 			    success: function(data) {
 			    },
 			    complete: function() {
