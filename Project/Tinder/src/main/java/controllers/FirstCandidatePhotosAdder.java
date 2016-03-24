@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import exceptions.DBException;
 import exceptions.UnauthorizedException;
 import model.DAO.UserDAO;
 import model.POJO.User;
@@ -25,7 +26,12 @@ public class FirstCandidatePhotosAdder extends HttpServlet {
 			} else {
 				User firstUser = ((List<User>) session.getAttribute("userCandidates")).get(0);
 				List<String> photos = (List<String>) session.getAttribute("firstCandidatePhotos");
-				photos.addAll(UserDAO.getAllPhotosOfUser(firstUser.getUsername()));
+				try {
+					photos.addAll(UserDAO.getAllPhotosOfUser(firstUser.getUsername()));
+				} catch (DBException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				session.setAttribute("fistCandidatePhotos", photos);
 			}
 		} catch (UnauthorizedException e) {
