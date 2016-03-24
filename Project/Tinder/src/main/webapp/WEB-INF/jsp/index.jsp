@@ -1,20 +1,19 @@
+<%@page import="com.mysql.jdbc.interceptors.SessionAssociationInterceptor"%>
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
-<%@ page session="false" %>
+<%@ page isELIgnored="false" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-<!-- Meta, title, CSS, favicons, etc. -->
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Tinder</title>
 
-<!-- Bootstrap core CSS -->
 
 <link href="css/bootstrap.min.css" rel="stylesheet">
 
@@ -30,91 +29,17 @@
 
 <script src="js/jquery.min.js"></script>
 <script src="js/nprogress.js"></script>
-
-<!--[if lt IE 9]>
-		        <script src="../assets/js/ie8-responsive-file-warning.js"></script>
-		        <![endif]-->
-
-<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-<!--[if lt IE 9]>
-		          <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
-		          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-		          <![endif]-->
-
 </head>
 
 
 <body class="nav-md">
-
 	<div class="container body">
-
 
 		<div class="main_container">
 
 			<jsp:include page="sideMenu.jsp" />
-
-			<!-- top navigation -->
-			<div class="top_nav">
-
-				<div class="nav_menu">
-					<nav class="" role="navigation">
-						<div class="nav toggle">
-							<a id="menu_toggle"><i class="fa fa-bars"></i></a>
-						</div>
-
-						<ul class="nav navbar-nav navbar-right">
-
-							<li role="presentation" class="dropdown"><a
-								href="javascript:;" class="dropdown-toggle info-number"
-								data-toggle="dropdown" aria-expanded="false"> <i
-									class="fa fa-comment"></i> <span class="badge bg-green">6</span>
-							</a>
-								<ul id="menu1"
-									class="dropdown-menu list-unstyled msg_list animated fadeInDown"
-									role="menu">
-									<li><a> <span class="image"> <img
-												src="images/img.jpg" alt="Profile Image" />
-										</span> <span> <span>John Smith</span> <span class="time">3
-													mins ago</span>
-										</span> <span class="message"> Film festivals used to be
-												do-or-die moments for movie makers. They were where... </span>
-									</a></li>
-									<li><a> <span class="image"> <img
-												src="images/img.jpg" alt="Profile Image" />
-										</span> <span> <span>John Smith</span> <span class="time">3
-													mins ago</span>
-										</span> <span class="message"> Film festivals used to be
-												do-or-die moments for movie makers. They were where... </span>
-									</a></li>
-									<li><a> <span class="image"> <img
-												src="images/img.jpg" alt="Profile Image" />
-										</span> <span> <span>John Smith</span> <span class="time">3
-													mins ago</span>
-										</span> <span class="message"> Film festivals used to be
-												do-or-die moments for movie makers. They were where... </span>
-									</a></li>
-									<li><a> <span class="image"> <img
-												src="images/img.jpg" alt="Profile Image" />
-										</span> <span> <span>John Smith</span> <span class="time">3
-													mins ago</span>
-										</span> <span class="message"> Film festivals used to be
-												do-or-die moments for movie makers. They were where... </span>
-									</a></li>
-									<li>
-										<div class="text-center">
-											<a href="inbox.html"> <strong>See All Alerts</strong> <i
-												class="fa fa-angle-right"></i>
-											</a>
-										</div>
-									</li>
-								</ul></li>
-
-						</ul>
-					</nav>
-				</div>
-
-			</div>
-			<!-- /top navigation -->
+			
+			<jsp:include page="navMenu.jsp" />
 
 
 			<div class="right_col" role="main">
@@ -126,6 +51,7 @@
 							<div class="row x_title">
 								<div class="col-md-6">
 									<h3>
+									<c:out value="${sessionScope.user.username}" />
 										Empty <small>no content</small>
 									</h3>
 								</div>
@@ -141,18 +67,7 @@
 				</div>
 				<br />
 
-				<!-- footer content -->
-
-				<footer>
-					<div class="copyright-info">
-						<p class="pull-right">
-							Gentelella - Bootstrap Admin Template by <a
-								href="https://colorlib.com">Colorlib</a>
-						</p>
-					</div>
-					<div class="clearfix"></div>
-				</footer>
-				<!-- /footer content -->
+				<jsp:include page="footer.jsp" />
 			</div>
 			<!-- /page content -->
 
@@ -168,7 +83,7 @@
 		<div id="notif-group" class="tabbed_notifications"></div>
 	</div>
 
-	<script src="js/bootstrap.min.js"></script>
+	  <script src="js/bootstrap.min.js"></script>
 
 	<!-- gauge js -->
 	<script type="text/javascript" src="js/gauge/gauge.min.js"></script>

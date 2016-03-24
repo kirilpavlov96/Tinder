@@ -2,7 +2,7 @@
  "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
  "http://java.sun.com/dtd/web-app_2_3.dtd" >
 
-<web-app >
+<web-app>
   <display-name>Archetype Created Web Application</display-name>
   <servlet>
   	<servlet-name>SignIn</servlet-name>
@@ -28,6 +28,30 @@
   	<description></description>
   	<servlet-class>controllers.Logout</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>DiscoverySettings</servlet-name>
+  	<display-name>DiscoverySettings</display-name>
+  	<description></description>
+  	<servlet-class>controllers.DiscoverySettings</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>Messages</servlet-name>
+  	<display-name>Messages</display-name>
+  	<description></description>
+  	<servlet-class>controllers.Messages</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>AppSettings</servlet-name>
+  	<display-name>AppSettings</display-name>
+  	<description></description>
+  	<servlet-class>controllers.AppSettings</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>Profile</servlet-name>
+  	<display-name>Profile</display-name>
+  	<description></description>
+  	<servlet-class>controllers.Profile</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>SignIn</servlet-name>
   	<url-pattern>/SignIn</url-pattern>
@@ -47,5 +71,21 @@
   <servlet-mapping>
   	<servlet-name>Logout</servlet-name>
   	<url-pattern>/Logout</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>DiscoverySettings</servlet-name>
+  	<url-pattern>/DiscoverySettings</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Messages</servlet-name>
+  	<url-pattern>/Messages</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>AppSettings</servlet-name>
+  	<url-pattern>/AppSettings</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>Profile</servlet-name>
+  	<url-pattern>/Profile</url-pattern>
   </servlet-mapping>
 </web-app>

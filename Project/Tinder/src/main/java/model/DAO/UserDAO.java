@@ -11,7 +11,7 @@ import model.POJO.User;
 public class UserDAO {
 
 	private static final String REGISTER_USER = "INSERT INTO tinder.users "
-			+ "values(null,?,?,?,?,'default',null,?,null,null);";
+			+ "values(null,?,?,?,true,'default',null,?,null,null);";
 	private static final String IS_USER_EXISTING = "select count(id) from tinder.users where "
 			+ "username = ? and password_hash = ?";
 	private static final String GET_USER = "select * from tinder.users where username = ?";
@@ -49,8 +49,7 @@ public class UserDAO {
 			st.setString(1, username);
 			st.setString(2, password);
 			st.setInt(3, age);
-			st.setBoolean(4, gender);
-			st.setString(5, email);
+			st.setString(4, email);
 			st.executeUpdate();
 			
 		} catch (Exception e) {

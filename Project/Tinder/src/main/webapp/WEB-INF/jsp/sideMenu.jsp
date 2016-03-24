@@ -1,5 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
 	pageEncoding="ISO-8859-1"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ page isELIgnored="false" %>
+
 <div class="col-md-3 left_col">
 	<div class="left_col scroll-view">
 
@@ -10,14 +13,16 @@
 		<div class="clearfix"></div>
 
 		<!-- menu prile quick info -->
-		<a href="profile.html">
+		<a href="Profile">
 			<div class="profile">
 				<div class="profile_pic">
 					<img src="images/img.jpg" alt="..." class="img-circle profile_img">
 				</div>
 				<div class="profile_info">
-					<span>Welcome,</span>
-					<h2>Vancho Bozduganski</h2>
+					<span>Welcome, <c:out value="${sessionScope.user.username}" /></span>
+					<h2>
+					drugi raboti
+					</h2>
 				</div>
 			</div>
 		</a>
@@ -31,11 +36,11 @@
 			<div class="menu_section">
 				<h3>General</h3>
 				<ul class="nav side-menu">
-					<li><a href="messages.html"><i class="fa fa-comment"></i>
+					<li><a href="Messages"><i class="fa fa-comment"></i>
 							Messages </a></li>
-					<li><a href="discovery-settings.html"><i
+					<li><a href="DiscoverySettings"><i
 							class="fa fa-heart-o"></i> Discovery settings</a></li>
-					<li><a href="app-settings.html"><i class="fa fa-fire"></i>
+					<li><a href="AppSettings"><i class="fa fa-fire"></i>
 							App settings</span></a></li>
 					<li><a><i class="fa fa-info"></i> Help and Info <span
 							class="fa fa-chevron-down"></span></a>
