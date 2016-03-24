@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import exceptions.DBException;
 import model.DAO.UserDAO;
 import model.POJO.*;
 
@@ -22,7 +23,12 @@ public class CandidatesMatchAdder extends HttpServlet {
 		}
 		else{
 			List<User> users = (List<User>) session.getAttribute("userCandidates");
-			List<User> newUsers = UserDAO.getFirstThreeNearbyUsers((String)session.getAttribute("username"));
+			List<User> newUsers = null;
+			try {
+				newUsers = UserDAO.getFirstThreeNearbyUsers((String)session.getAttribute("username"));
+			} catch (DBException e) {
+				e.printStackTrace();
+			}
 			if(newUsers == null) return;
 			users.addAll(newUsers);
 			session.setAttribute("userCandidates", users);
