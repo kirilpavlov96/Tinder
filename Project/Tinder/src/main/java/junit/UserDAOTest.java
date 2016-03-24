@@ -29,7 +29,7 @@ public class UserDAOTest {
 		try {
 			deleteUser();
 			assertFalse(UserDAO.isUserExisting(TEST_USERNAME, TEST_PASSWORD));
-			UserDAO.registerUser(TEST_USERNAME, TEST_PASSWORD, TEST_MAIL, TEST_GENDER, TEST_AGE);
+			registerUserWithTestParam();
 			assertTrue(UserDAO.isUserExisting(TEST_USERNAME, TEST_PASSWORD));
 			User testUser = UserDAO.getUser(TEST_USERNAME);
 			//System.out.println(testUser);
@@ -44,6 +44,11 @@ public class UserDAOTest {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+
+	private void registerUserWithTestParam() throws DBException {
+		deleteUser();
+		UserDAO.registerUser(TEST_USERNAME, TEST_PASSWORD, TEST_MAIL, TEST_GENDER, TEST_AGE);
 	}
 
 	private void deleteUser() throws DBException {
@@ -68,11 +73,31 @@ public class UserDAOTest {
 	@Test
 	public void testChangeLocation() throws DBException{
 		deleteUser();
-		UserDAO.registerUser(TEST_USERNAME, TEST_PASSWORD, TEST_MAIL, TEST_GENDER, TEST_AGE);
+		registerUserWithTestParam();
 		UserDAO.setLocation(TEST_USERNAME, TEST_LATITUDE, TEST_LONGITUDE);
 		User testUser = UserDAO.getUser(TEST_USERNAME);
 		assertEquals(TEST_LATITUDE, testUser.getLatitude(), LAMBDA);
 		assertEquals(TEST_LONGITUDE, testUser.getLongitude(), LAMBDA);
+		deleteUser();
+	}
+	
+	private static final boolean WANTS_MALE = true;
+	private static final boolean WANTS_FEMALE = false;
+	private static final int SEARCH_DISTANCE = 16;
+	private static final int MAX_DESIRED_AGE = 30;
+	private static final int MIN_DESIRED_AGE= 17;
+	
+	@Test
+	public void testUpdateDiscoverySettings() throws DBException {
+		registerUserWithTestParam();
+		UserDAO.updateDiscovetySettings(TEST_USERNAME, WANTS_MALE,
+				WANTS_FEMALE, SEARCH_DISTANCE, MAX_DESIRED_AGE, MIN_DESIRED_AGE);
+		User afterUpdate = UserDAO.getUser(TEST_USERNAME);
+		assertEquals(WANTS_MALE, afterUpdate.isWantsMale());
+		assertEquals(WANTS_FEMALE, afterUpdate.isWantsFemale());
+		assertEquals(SEARCH_DISTANCE, afterUpdate.getSearchDistance());
+		assertEquals(MAX_DESIRED_AGE, afterUpdate.getMaxDesiredAge());
+		assertEquals(MIN_DESIRED_AGE, afterUpdate.getMinDesiredAge());
 		deleteUser();
 	}
 

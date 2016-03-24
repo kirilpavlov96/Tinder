@@ -47,7 +47,6 @@ public class UserDAO {
 		return result;
 	}
 
-	// not finished
 	public static void registerUser(String username, String password, String email, boolean gender, int age)
 			throws DBException {
 		Connection conn = null;
@@ -72,26 +71,25 @@ public class UserDAO {
 	}
 
 	public static boolean setLocation(String username, double latitude, double longitude) throws DBException {
-		User toChangeLocation = getUser(username);
-		int id = toChangeLocation.getId();
+		User toChangeLocationOf = getUser(username);
+		if( toChangeLocationOf == null){
+			return false;
+		}
 		Connection conn = null;
 		PreparedStatement st = null;
-		ResultSet rs = null;
 		try {
 			conn = ConnectionDispatcher.getConnection();
 			st = conn.prepareStatement(CHANGE_LOCATION);
 			st.setDouble(1, latitude);
 			st.setDouble(2, longitude);
-			st.setInt(3, id);
+			st.setInt(3, toChangeLocationOf.getId());
 			st.execute();
 
 		} catch (Exception e) {
 			throw new DBException("Something went wrong with the Database.", e);
-			// TODO
 		} finally {
 			ConnectionDispatcher.returnConnection(conn);
 		}
-
 		return true;
 	}
 
@@ -99,23 +97,18 @@ public class UserDAO {
 		User toFindFor = getUser(username);
 		List<User> toReturn = new LinkedList<User>();
 		if (toFindFor != null) {
-			int maxAge = toFindFor.getMaxDesiredAge();
-			int minAge = toFindFor.getMinDesiredAge();
-			int searchDistance = toFindFor.getSearchDistance();
-			double latitude = toFindFor.getLatitude();
-			double longitude = toFindFor.getLongitude();
 			Connection conn = null;
 			PreparedStatement st = null;
 			ResultSet rs = null;
 			try {
 				conn = ConnectionDispatcher.getConnection();
 				st = conn.prepareStatement(FIND_CLOSE_USERS);
-				st.setInt(1, minAge);
-				st.setInt(2, maxAge);
-				st.setDouble(3, latitude);
-				st.setDouble(4, latitude);
-				st.setDouble(5, longitude);
-				st.setInt(6, searchDistance);
+				st.setInt(1, toFindFor.getMinDesiredAge());
+				st.setInt(2,toFindFor.getMaxDesiredAge());
+				st.setDouble(3, toFindFor.getLatitude());
+				st.setDouble(4, toFindFor.getLatitude());
+				st.setDouble(5, toFindFor.getLongitude());
+				st.setInt(6, toFindFor.getSearchDistance());
 				rs = st.executeQuery();
 
 				while (rs.next()) {
@@ -180,5 +173,35 @@ public class UserDAO {
 		} finally {
 			ConnectionDispatcher.returnConnection(conn);
 		}
+	}
+	
+	private static final String UPDATE_DISCOVERY_SETTINGS = 
+			"UPDATE tinder.users SET wants_male=?, wants_female=?, search_distance=?,"
+			+ " max_desired_age=?, min_desired_age=? WHERE id=?;";
+	public static boolean updateDiscovetySettings(String username,boolean wantsMale,boolean wantsFemale,
+			int searchDistance,int maxDesiredAge,int minDesiredAge) throws DBException{
+		User user = getUser(username);
+		if( user == null){
+			return false;
+		}
+		Connection conn = null;
+		PreparedStatement st = null;
+		try {
+			conn = ConnectionDispatcher.getConnection();
+			st = conn.prepareStatement(UPDATE_DISCOVERY_SETTINGS);
+			st.setBoolean(1, wantsMale);
+			st.setBoolean(2, wantsFemale);
+			st.setInt(3, searchDistance);
+			st.setInt(4, maxDesiredAge);
+			st.setInt(5, minDesiredAge);
+			st.setInt(6, user.getId());
+			st.execute();
+
+		} catch (Exception e) {
+			throw new DBException("Something went wrong with the Database.", e);
+		} finally {
+			ConnectionDispatcher.returnConnection(conn);
+		}
+		return true;
 	}
 }
