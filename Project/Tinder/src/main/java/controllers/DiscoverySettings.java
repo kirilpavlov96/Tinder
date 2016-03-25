@@ -12,7 +12,20 @@ public class DiscoverySettings extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.getRequestDispatcher("WEB-INF/jsp/discovery-settings.jsp")
 		.forward(request, response);
-		
+	}
+	
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.getParameter("search-distance");
+		request.getParameter("age-range");
+		request.getParameter("show-women");
+		request.getParameter("show-men");
+		System.out.println("Tuka doyde toq request " 
+		+ request.getParameter("search-distance") + " "
+		+request.getParameter("age-range")+ " " +
+		request.getParameter("show-women")+ " " +
+		request.getParameter("show-men"));
+		doGet(request, response);
 	}
 
 }

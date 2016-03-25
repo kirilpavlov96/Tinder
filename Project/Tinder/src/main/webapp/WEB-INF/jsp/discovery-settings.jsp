@@ -75,47 +75,56 @@
 										</div>
 										<div class="x_content">
 											<div class="row grid_slider">
-												<div class="col-md-6 col-sm-6 col-xs-12">
-													Discovery:
-													<div class="pull-right">
-														<input type="checkbox" class="flat">
-													</div>
-													<p>
-														<small>Disabling discovery prevents others from
-															seeing your card</small>
-													</p>
+												<form action="/Tinder/DiscoverySettings" method="POST">
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														Discovery:
+														<div class="pull-right">
+															<input type="checkbox" name="discovery" class="flat">
+														</div>
+														<p>
+															<small>Disabling discovery prevents others from
+																seeing your card</small>
+														</p>
 
-												</div>
-												<div class="col-md-6 col-sm-6 col-xs-12">
-													<p>Show me:</p>
-													Men:
-													<div class="pull-right">
-														<input type="checkbox" class="flat">
 													</div>
-													<p></p>
-													Women:
-													<div class="pull-right">
-														<input type="checkbox" class="flat">
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<p>Show me:</p>
+														Men:
+														<div class="pull-right">
+															<input type="checkbox" name="show-men" class="flat"
+															<c:if test="${sessionScope.user.wantsMale == true}">
+																	checked="checked"
+															</c:if>>
+														</div>
+														<p></p>
+														Women:
+														<div class="pull-right">
+															<input type="checkbox" name="show-women" class="flat"
+															<c:if test="${sessionScope.user.wantsFemale == true}">
+																	checked="checked"
+															</c:if>>
+														</div>
 													</div>
-												</div>
-												<div class="col-md-6 col-sm-6 col-xs-12">
-													<hr>
-													<p>Show ages:</p>
-													<input type="text" id="range" value="" name="range" />
-												</div>
-												<div class="col-md-6 col-sm-6 col-xs-12">
-													<hr>
-													<p>Search distance:</p>
-													<input type="text" class="range_time24" value=""
-														name="range" />
-												</div>
-												<div class="col-md-12 col-sm-12 col-xs-12">
-													<p></p>
-													<hr>
-													<div class="pull-right">
-														<button type="submit" class="btn btn-success">Apply</button>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<hr>
+														<p>Show ages:</p>
+														<input type="text" id="range-age" value=""
+															name="age-range" />
 													</div>
-												</div>
+													<div class="col-md-6 col-sm-6 col-xs-12">
+														<hr>
+														<p>Search distance:</p>
+														<input type="text" class="range-distance" value=""
+															name="search-distance" />
+													</div>
+													<div class="col-md-12 col-sm-12 col-xs-12">
+														<p></p>
+														<hr>
+														<div class="pull-right">
+															<button type="submit" class="btn btn-success">Apply</button>
+														</div>
+													</div>
+												</form>
 											</div>
 										</div>
 									</div>
@@ -172,7 +181,7 @@
 		<!-- pace -->
 		<script src="js/pace/pace.min.js"></script>
 
-		
+
 		<script>
 			$(document).ready(function() {
 				$(":input").inputmask();
@@ -182,24 +191,28 @@
 		<!-- ion_range -->
 		<script>
 			$(function() {
-				$("#range").ionRangeSlider({
-					hide_min_max : true,
-					keyboard : true,
-					min : 18,
-					max : 100,
-					from : 18,
-					to : 22,
-					type : 'double',
-					step : 1,
-					grid : true
-				});
-				$(".range_time24").ionRangeSlider({
-					min : 1,
-					max : 200,
-					from : 5,
-					postfix : ' km',
-					grid : true,
-				});
+				$("#range-age")
+						.ionRangeSlider(
+								{
+									hide_min_max : true,
+									keyboard : true,
+									min : 18,
+									max : 100,
+									from : '<c:out value="${sessionScope.user.minDesiredAge}" />',
+									to : '<c:out value="${sessionScope.user.maxDesiredAge}" />',
+									type : 'double',
+									step : 1,
+									grid : true
+								});
+				$(".range-distance")
+						.ionRangeSlider(
+								{
+									min : 1,
+									max : 200,
+									from : '<c:out value="${sessionScope.user.searchDistance}" />',
+									postfix : ' km',
+									grid : true,
+								});
 			});
 		</script>
 		<!-- /ion_range -->
