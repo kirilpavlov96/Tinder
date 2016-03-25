@@ -22,9 +22,12 @@ public class UserDAO {
 	private static final String GET_USER = "select * from tinder.users where username = ?";
 	private static final String CHANGE_LOCATION = "UPDATE tinder.users " + "SET latitude = ?, longitude = ? "
 			+ "WHERE id = ?;";
-	private static final String FIND_CLOSE_USERS = "select * from tinder.users " + "where age between ? and ? and "
-			+ "6371.009*sqrt(pow(radians(? - latitude),2) " + "+ pow(cos((? + latitude)/2)*(radians(? - longitude)),2))"
-			+ " <= ? limit 3;";
+	private static final String FIND_CLOSE_USERS = "select username from tinder.users "
+			+ "where age between ? and ? and "
+			+ "6371.009*sqrt(pow(radians(? - latitude),2) " 
+			+ "+ pow(cos((? + latitude)/2)*(radians(? - longitude)),2))"
+			+ " <= ? union select username from dislikes d right join users u on (d.disliked_id=u.id) where d.disliker_id != 1"
+			+ " union select username from likes l right join users u on (l.liked_id=u.id) where l.liker_id != ? limit 3;";
 	private static final String FIND_PICTURES_OF_USER = "SELECT * FROM tinder.pictures where owner_id = ?;";
 
 	public static boolean isUserAndPassExisting(String username, String password) throws DBException {
@@ -153,6 +156,7 @@ public class UserDAO {
 				st.setDouble(4, toFindFor.getLatitude());
 				st.setDouble(5, toFindFor.getLongitude());
 				st.setInt(6, toFindFor.getSearchDistance());
+				st.setInt(7, toFindFor.getId());
 				rs = st.executeQuery();
 
 				while (rs.next()) {
