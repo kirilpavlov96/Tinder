@@ -8,8 +8,12 @@ import javax.servlet.http.HttpServletResponse;
 
 public class Messages extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-       
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.getRequestDispatcher("WEB-INF/jsp/messages.jsp").forward(request, response);;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		if (Home.checkValidSession(request, response)) {
+			request.getRequestDispatcher("WEB-INF/jsp/messages.jsp").forward(request, response);
+		}
 	}
+
 }
