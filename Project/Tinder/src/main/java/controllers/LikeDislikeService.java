@@ -75,7 +75,7 @@ public class LikeDislikeService extends HttpServlet {
 		pw.flush();
 	}
 
-	private void likeOrDislikeAndRemoveTheTopUser(HttpServletRequest request, User user, List<User> users) {
+	private void likeOrDislikeAndRemoveTheTopUser(HttpServletRequest request, User user, List<User> users) throws DBException {
 		if (((String) request.getAttribute("action")).equals("Like")) {
 			UserDAO.likeUser(user.getId(), users.get(0).getId());
 		}
