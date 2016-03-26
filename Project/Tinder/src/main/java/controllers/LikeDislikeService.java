@@ -98,7 +98,10 @@ public class LikeDislikeService extends HttpServlet {
 		} catch (DBException e) {
 			e.printStackTrace();
 		}
-		System.out.println(newUsers.size());
+		System.out.println("Users added: size-"+newUsers.size());
+		for(User u : newUsers){
+			System.out.println(u.getUsername());
+		}
 		users.addAll(newUsers);
 		request.getSession().setAttribute("userCandidates", users);
 	}
