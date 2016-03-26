@@ -24,8 +24,8 @@ public class UserDAO {
 	private static final String FIND_CLOSE_USERS = "select username from tinder.users "
 			+ "where age between ? and ? and " + "6371.009*sqrt(pow(radians(? - latitude),2) "
 			+ "+ pow(cos((? + latitude)/2)*(radians(? - longitude)),2))"
-			+ " <= ? union select username from dislikes d right join users u on (d.disliked_id=u.id) where d.disliker_id != 1"
-			+ " union select username from likes l right join users u on (l.liked_id=u.id) where l.liker_id != ? limit 3;";
+			+ " <= ? union select username from tinder.dislikes d right join tinder.users u on (d.disliked_id=u.id) where d.disliker_id != 1"
+			+ " union select username from tinder.likes l right join tinder.users u on (l.liked_id=u.id) where l.liker_id != ? limit 3;";
 	private static final String FIND_PICTURES_OF_USER = "SELECT * FROM tinder.pictures where owner_id = ?;";
 	private static final String LIKE_USER = "insert into tinder.likes values(null,?,?);";
 	private static final String DISLIKE_USER = "insert into tinder.dislikes values(null,?,?);";
@@ -41,7 +41,6 @@ public class UserDAO {
 			st.setString(2, calculateHash(password));
 			ResultSet rs = st.executeQuery();
 			rs.next();
-			System.out.println(rs.getInt(1));
 			if (rs.getInt(1) == 1) {
 				result = true;
 			}
@@ -64,7 +63,6 @@ public class UserDAO {
 			st.setString(2, password);
 			ResultSet rs = st.executeQuery();
 			rs.next();
-			System.out.println(rs.getInt(1));
 			if (rs.getInt(1) == 1) {
 				result = true;
 			}

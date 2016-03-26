@@ -34,7 +34,7 @@ public class CandidatesMatchAdder extends HttpServlet {
 			}
 			if(newUsers == null) return;
 			users.addAll(newUsers);
-			session.setAttribute("userCandidates", users);
+			session.setAttribute("userCandidates", user);
 		}
 	}
 
