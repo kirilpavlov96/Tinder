@@ -98,7 +98,7 @@ public class UserDAO {
 		PreparedStatement st = null;
 		try {
 			conn = ConnectionDispatcher.getConnection();
-			st = conn.prepareStatement(LIKE_USER);
+			st = conn.prepareStatement(DISLIKE_USER);
 			st.setInt(1, dislikerId);
 			st.setInt(2, dislikedId);
 			st.execute();
