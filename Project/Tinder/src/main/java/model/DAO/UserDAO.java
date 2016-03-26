@@ -17,18 +17,18 @@ public class UserDAO {
 			+ "values(null,?,?,?,?,'default',?,false,false,null,null,null,null,null);";
 	private static final String IS_USER_AND_PASS_EXISTING = "select count(id) from tinder.users where "
 			+ "username = ? and password_hash = ?";
-	private static final String IS_USER_EXISTING = "select count(id) from tinder.users where "
-			+ "username = ?";
+	private static final String IS_USER_EXISTING = "select count(id) from tinder.users where " + "username = ?";
 	private static final String GET_USER = "select * from tinder.users where username = ?";
 	private static final String CHANGE_LOCATION = "UPDATE tinder.users " + "SET latitude = ?, longitude = ? "
 			+ "WHERE id = ?;";
 	private static final String FIND_CLOSE_USERS = "select username from tinder.users "
-			+ "where age between ? and ? and "
-			+ "6371.009*sqrt(pow(radians(? - latitude),2) " 
+			+ "where age between ? and ? and " + "6371.009*sqrt(pow(radians(? - latitude),2) "
 			+ "+ pow(cos((? + latitude)/2)*(radians(? - longitude)),2))"
 			+ " <= ? union select username from dislikes d right join users u on (d.disliked_id=u.id) where d.disliker_id != 1"
 			+ " union select username from likes l right join users u on (l.liked_id=u.id) where l.liker_id != ? limit 3;";
 	private static final String FIND_PICTURES_OF_USER = "SELECT * FROM tinder.pictures where owner_id = ?;";
+	private static final String LIKE_USER = "insert into tinder.likes values(null,?,?);";
+	private static final String DISLIKE_USER = "insert into tinder.dislikes values(null,?,?);";
 
 	public static boolean isUserAndPassExisting(String username, String password) throws DBException {
 		Connection conn = null;
@@ -52,7 +52,7 @@ public class UserDAO {
 		}
 		return result;
 	}
-	
+
 	public static boolean isUserExisting(String username, String password) throws DBException {
 		Connection conn = null;
 		PreparedStatement st = null;
@@ -74,6 +74,40 @@ public class UserDAO {
 			ConnectionDispatcher.returnConnection(conn);
 		}
 		return result;
+	}
+
+	public static void likeUser(int likerId, int likedId) throws DBException {
+		Connection conn = null;
+		PreparedStatement st = null;
+		try {
+			conn = ConnectionDispatcher.getConnection();
+			st = conn.prepareStatement(LIKE_USER);
+			st.setInt(1, likerId);
+			st.setInt(2, likedId);
+			st.execute();
+
+		} catch (Exception e) {
+			throw new DBException("Something went wrong with the Database.", e);
+		} finally {
+			ConnectionDispatcher.returnConnection(conn);
+		}
+	}
+
+	public static void dislikeUser(int dislikerId, int dislikedId) throws DBException{
+		Connection conn = null;
+		PreparedStatement st = null;
+		try {
+			conn = ConnectionDispatcher.getConnection();
+			st = conn.prepareStatement(LIKE_USER);
+			st.setInt(1, dislikerId);
+			st.setInt(2, dislikedId);
+			st.execute();
+
+		} catch (Exception e) {
+			throw new DBException("Something went wrong with the Database.", e);
+		} finally {
+			ConnectionDispatcher.returnConnection(conn);
+		}
 	}
 
 	public static void registerUser(String username, String password, String email, boolean gender, int age)
@@ -105,21 +139,20 @@ public class UserDAO {
 		digest.update(password.getBytes());
 		byte[] hash = digest.digest();
 		StringBuilder hexString = new StringBuilder(32);
-		
+
 		for (int i = 0; i < hash.length; i++) {
-		    if ((0xff & hash[i]) < 0x10) {
-		        hexString.append("0"
-		                + Integer.toHexString((0xFF & hash[i])));
-		    } else {
-		        hexString.append(Integer.toHexString(0xFF & hash[i]));
-		    }
+			if ((0xff & hash[i]) < 0x10) {
+				hexString.append("0" + Integer.toHexString((0xFF & hash[i])));
+			} else {
+				hexString.append(Integer.toHexString(0xFF & hash[i]));
+			}
 		}
 		return hexString.toString();
 	}
 
 	public static boolean setLocation(String username, double latitude, double longitude) throws DBException {
 		User toChangeLocationOf = getUser(username);
-		if( toChangeLocationOf == null){
+		if (toChangeLocationOf == null) {
 			return false;
 		}
 		Connection conn = null;
@@ -151,7 +184,7 @@ public class UserDAO {
 				conn = ConnectionDispatcher.getConnection();
 				st = conn.prepareStatement(FIND_CLOSE_USERS);
 				st.setInt(1, toFindFor.getMinDesiredAge());
-				st.setInt(2,toFindFor.getMaxDesiredAge());
+				st.setInt(2, toFindFor.getMaxDesiredAge());
 				st.setDouble(3, toFindFor.getLatitude());
 				st.setDouble(4, toFindFor.getLatitude());
 				st.setDouble(5, toFindFor.getLongitude());
@@ -209,8 +242,8 @@ public class UserDAO {
 				return new User(rs.getInt("id"), rs.getString("username"), rs.getString("password_hash"),
 						rs.getInt("age"), rs.getBoolean("gender_is_male"), rs.getString("avatar_name"),
 						rs.getString("email"), rs.getBoolean("wants_male"), rs.getBoolean("wants_female"),
-						rs.getDouble("latitude"),rs.getDouble("longitude"),rs.getInt("search_distance"),
-						rs.getInt("max_desired_age"),rs.getInt("min_desired_age"));
+						rs.getDouble("latitude"), rs.getDouble("longitude"), rs.getInt("search_distance"),
+						rs.getInt("max_desired_age"), rs.getInt("min_desired_age"));
 			}
 			return null;
 
@@ -222,14 +255,14 @@ public class UserDAO {
 			ConnectionDispatcher.returnConnection(conn);
 		}
 	}
-	
-	private static final String UPDATE_DISCOVERY_SETTINGS = 
-			"UPDATE tinder.users SET wants_male=?, wants_female=?, search_distance=?,"
+
+	private static final String UPDATE_DISCOVERY_SETTINGS = "UPDATE tinder.users SET wants_male=?, wants_female=?, search_distance=?,"
 			+ " max_desired_age=?, min_desired_age=? WHERE id=?;";
-	public static boolean updateDiscovetySettings(String username,boolean wantsMale,boolean wantsFemale,
-			int searchDistance,int maxDesiredAge,int minDesiredAge) throws DBException{
+
+	public static boolean updateDiscovetySettings(String username, boolean wantsMale, boolean wantsFemale,
+			int searchDistance, int maxDesiredAge, int minDesiredAge) throws DBException {
 		User user = getUser(username);
-		if( user == null){
+		if (user == null) {
 			return false;
 		}
 		Connection conn = null;
