@@ -146,11 +146,11 @@
 	<script type="text/javascript">
 		function worker() {
 			$.ajax({
-				url : 'CandidatesMatchAdder',
-				success : function(data) {
-				},
-				complete : function() {
-				}
+				url : 'LikeDislikeService',
+				type: 'POST',
+				data: {action:'like'}
+			}).done(function(response){
+				console.log(response);
 			});
 		};
 	</script>
