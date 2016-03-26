@@ -148,7 +148,7 @@
 			$.ajax({
 				url : 'LikeDislikeService',
 				type: 'POST',
-				data: {action:'like'}
+				data: {action:'Like'}
 			}).done(function(response){
 				console.log(response);
 			});

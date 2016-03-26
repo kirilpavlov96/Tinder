@@ -2,6 +2,8 @@ package controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -65,21 +68,23 @@ public class LikeDislikeService extends HttpServlet {
 			throws DBException, IOException {
 		JSONObject json = new JSONObject();
 		if(users.size()==0){
-			json.put("photos", new LinkedList<String>().add("nousers.jpg"));
+			json.put("photos", new JSONArray(new LinkedList<String>().add("nousers.jpg")));
 		}
 		else{
-			json.put("photos", UserDAO.getAllPhotosOfUser(users.get(0).getUsername()));
+			System.out.println(users.get(0));
+			json.put("photos", new JSONArray(UserDAO.getAllPhotosOfUser(users.get(0).getUsername())));
 		}
 		PrintWriter pw = response.getWriter();
+		System.out.println(json);
 		pw.print(json);
 		pw.flush();
 	}
 
 	private void likeOrDislikeAndRemoveTheTopUser(HttpServletRequest request, User user, List<User> users) throws DBException {
-		if (((String) request.getAttribute("action")).equals("Like")) {
+		if (((String) request.getParameter("action")).equals("Like")) {
 			UserDAO.likeUser(user.getId(), users.get(0).getId());
 		}
-		if (((String) request.getAttribute("action")).equals("Dislike")) {
+		if (((String) request.getParameter("action")).equals("Dislike")) {
 			UserDAO.dislikeUser(user.getId(), users.get(0).getId());
 		}
 		users.remove(0);
@@ -93,6 +98,7 @@ public class LikeDislikeService extends HttpServlet {
 		} catch (DBException e) {
 			e.printStackTrace();
 		}
+		System.out.println(newUsers.size());
 		users.addAll(newUsers);
 		request.getSession().setAttribute("userCandidates", users);
 	}

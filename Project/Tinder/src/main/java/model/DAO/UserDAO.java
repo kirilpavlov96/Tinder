@@ -41,7 +41,6 @@ public class UserDAO {
 			st.setString(2, calculateHash(password));
 			ResultSet rs = st.executeQuery();
 			rs.next();
-			System.out.println(rs.getInt(1));
 			if (rs.getInt(1) == 1) {
 				result = true;
 			}
@@ -64,7 +63,6 @@ public class UserDAO {
 			st.setString(2, password);
 			ResultSet rs = st.executeQuery();
 			rs.next();
-			System.out.println(rs.getInt(1));
 			if (rs.getInt(1) == 1) {
 				result = true;
 			}
