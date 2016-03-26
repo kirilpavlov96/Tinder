@@ -21,11 +21,12 @@ public class UserDAO {
 	private static final String GET_USER = "select * from tinder.users where username = ?";
 	private static final String CHANGE_LOCATION = "UPDATE tinder.users " + "SET latitude = ?, longitude = ? "
 			+ "WHERE id = ?;";
-	private static final String FIND_CLOSE_USERS = "select username from tinder.users "
-			+ "where age between ? and ? and " + "6371.009*sqrt(pow(radians(? - latitude),2) "
-			+ "+ pow(cos((? + latitude)/2)*(radians(? - longitude)),2))"
-			+ " <= ? union select username from tinder.dislikes d right join tinder.users u on (d.disliked_id=u.id) where d.disliker_id != 1"
-			+ " union select username from tinder.likes l right join tinder.users u on (l.liked_id=u.id) where l.liker_id != ? limit 3;";
+	private static final String FIND_CLOSE_USERS = "select username from tinder.users" + " where age between ? and ?"
+			+ " and 6371.009*sqrt(pow(radians(? - latitude),2) + pow(cos((?+latitude)/2)*(radians(? - longitude)),2)) <= ?"
+			+ " and username not in(" + "select username from tinder.dislikes d"
+			+ " right join tinder.users u on (d.disliked_id=u.id)" + " where d.disliker_id = ?)" + " and username not in ("
+			+ " select username from tinder.likes l" + " right join tinder.users u on (l.liked_id=u.id)" + " where l.liker_id = ?)"
+			+ " and id != ? limit 3;";
 	private static final String FIND_PICTURES_OF_USER = "SELECT * FROM tinder.pictures where owner_id = ?;";
 	private static final String LIKE_USER = "insert into tinder.likes values(null,?,?);";
 	private static final String DISLIKE_USER = "insert into tinder.dislikes values(null,?,?);";
@@ -91,7 +92,7 @@ public class UserDAO {
 		}
 	}
 
-	public static void dislikeUser(int dislikerId, int dislikedId) throws DBException{
+	public static void dislikeUser(int dislikerId, int dislikedId) throws DBException {
 		Connection conn = null;
 		PreparedStatement st = null;
 		try {
@@ -188,12 +189,15 @@ public class UserDAO {
 				st.setDouble(5, toFindFor.getLongitude());
 				st.setInt(6, toFindFor.getSearchDistance());
 				st.setInt(7, toFindFor.getId());
+				st.setInt(8, toFindFor.getId());
+				st.setInt(9, toFindFor.getId());
 				rs = st.executeQuery();
 
 				while (rs.next()) {
 					toReturn.add(UserDAO.getUser(rs.getString("username")));
 				}
 			} catch (Exception e) {
+				e.printStackTrace();
 				throw new DBException("Something went wrong with the Database.", e);
 				// TODO
 			} finally {
