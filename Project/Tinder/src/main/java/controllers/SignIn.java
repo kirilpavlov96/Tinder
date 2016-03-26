@@ -25,22 +25,19 @@ public class SignIn extends HttpServlet {
 		String longitude = request.getParameter("longitude");
 		String latitude = request.getParameter("latitude");
 		try {
-			boolean isExisting = UserDAO.isUserExisting(username, password);
-			if(isExisting){
+			boolean isExisting = UserDAO.isUserAndPassExisting(username, password);
+			if (isExisting) {
 				HttpSession session = request.getSession();
-				UserDAO.setLocation(username,
-						Double.parseDouble(latitude),
-						Double.parseDouble(longitude));
+				UserDAO.setLocation(username, Double.parseDouble(latitude), Double.parseDouble(longitude));
 				User user = UserDAO.getUser(username);
 				session.setAttribute("user", user);
 				session.setAttribute("userCandidates", new LinkedList<User>());
 				session.setAttribute("fistCandidatePhotos", new LinkedList<String>());
 				response.sendRedirect("./Home");
+			} else {
+				throw new ServletException("Ivalid username or password! :" + username + " " + password);
 			}
-			else{
-				throw new ServletException("Ivalid username or password!");
-			}
-			
+
 		} catch (DBException e) {
 			e.printStackTrace();
 			request.setAttribute("errorMassage", e.getMessage());
@@ -50,11 +47,6 @@ public class SignIn extends HttpServlet {
 			request.setAttribute("errorMassage", e.getMessage());
 			request.getRequestDispatcher("WEB-INF/jsp/login.jsp").forward(request, response);
 		}
-	}
-	
-	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		response.sendRedirect("./Home");
 	}
 
 }

@@ -1,6 +1,10 @@
 package model.POJO;
 
-public class User {
+import java.io.Serializable;
+
+public class User implements Serializable{
+	private static final long serialVersionUID = 4137562350260262508L;
+	
 	private int id;
 	private String username;
 	private String passwordHash;
