@@ -208,7 +208,7 @@
 						.ionRangeSlider(
 								{
 									min : 1,
-									max : 200,
+									max : 1000,
 									from : '<c:out value="${sessionScope.user.searchDistance}" />',
 									postfix : ' km',
 									grid : true,
