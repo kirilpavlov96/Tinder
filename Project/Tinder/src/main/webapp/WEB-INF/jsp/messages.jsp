@@ -128,137 +128,140 @@
 														style="overflow: hidden; outline: none;" tabindex="5001">
 														<div class="col-inside-lg decor-default">
 															<div class="chat-body">
-																<h6>Mini Chat</h6>
-																<div class="answer left">
-																	<div class="avatar">
-																		<img
-																			src="http://bootdey.com/img/Content/avatar/avatar1.png"
-																			alt="User name">
-																		<div class="status offline"></div>
+																<div id="messages">
+																	<h6>Mini Chat</h6>
+																	<div class="answer left">
+																		<div class="avatar">
+																			<img
+																				src="http://bootdey.com/img/Content/avatar/avatar1.png"
+																				alt="User name">
+																			<div class="status offline"></div>
+																		</div>
+																		<div class="name">Alexander Herthic</div>
+																		<div class="text">Lorem ipsum dolor amet,
+																			consectetur adipisicing elit Lorem ipsum dolor amet,
+																			consectetur adipisicing elit Lorem ipsum dolor amet,
+																			consectetur adiping elit</div>
+																		<div class="time">5 min ago</div>
 																	</div>
-																	<div class="name">Alexander Herthic</div>
-																	<div class="text">Lorem ipsum dolor amet,
-																		consectetur adipisicing elit Lorem ipsum dolor amet,
-																		consectetur adipisicing elit Lorem ipsum dolor amet,
-																		consectetur adiping elit</div>
-																	<div class="time">5 min ago</div>
-																</div>
-																<div class="answer right">
-																	<div class="avatar">
-																		<img
-																			src="http://bootdey.com/img/Content/avatar/avatar2.png"
-																			alt="User name">
-																		<div class="status offline"></div>
+																	<div class="answer left">
+																		<div class="avatar">
+																			<img
+																				src="http://bootdey.com/img/Content/avatar/avatar1.png"
+																				alt="User name">
+																			<div class="status offline"></div>
+																		</div>
+																		<div class="name">Alexander Herthic</div>
+																		<div class="text">Lorem ipsum dolor amet,
+																			consectetur adipisicing elit Lorem ipsum dolor amet,
+																			consectetur adipisicing elit Lorem ipsum dolor amet,
+																			consectetur adiping elit</div>
+																		<div class="time">5 min ago</div>
 																	</div>
-																	<div class="name">Alexander Herthic</div>
-																	<div class="text">Lorem ipsum dolor amet,
-																		consectetur adipisicing elit Lorem ipsum dolor amet,
-																		consectetur adipisicing elit Lorem ipsum dolor amet,
-																		consectetur adiping elit</div>
-																	<div class="time">5 min ago</div>
-																</div>
-																<div class="answer left">
-																	<div class="avatar">
-																		<img
-																			src="http://bootdey.com/img/Content/avatar/avatar1.png"
-																			alt="User name">
-																		<div class="status online"></div>
+																	<div class="answer left">
+																		<div class="avatar">
+																			<img
+																				src="http://bootdey.com/img/Content/avatar/avatar1.png"
+																				alt="User name">
+																			<div class="status offline"></div>
+																		</div>
+																		<div class="name">Alexander Herthic</div>
+																		<div class="text">Lorem ipsum dolor amet,
+																			consectetur adipisicing elit Lorem ipsum dolor amet,
+																			consectetur adipisicing elit Lorem ipsum dolor amet,
+																			consectetur adiping elit</div>
+																		<div class="time">5 min ago</div>
 																	</div>
-																	<div class="name">Alexander Herthic</div>
-																	<div class="text">...</div>
-																	<div class="time">5 min ago</div>
-																</div>
-																<div class="answer right">
-																	<div class="avatar">
-																		<img
-																			src="http://bootdey.com/img/Content/avatar/avatar2.png"
-																			alt="User name">
-																		<div class="status busy"></div>
+																	<div class="answer right">
+																		<div class="avatar">
+																			<img
+																				src="http://bootdey.com/img/Content/avatar/avatar2.png"
+																				alt="User name">
+																			<div class="status off"></div>
+																		</div>
+																		<div class="name">Alexander Herthic</div>
+																		<div class="text">It is a long established fact
+																			that a reader will be. Thanks Mate!</div>
+																		<div class="time">5 min ago</div>
 																	</div>
-																	<div class="name">Alexander Herthic</div>
-																	<div class="text">It is a long established fact
-																		that a reader will be. Thanks Mate!</div>
-																	<div class="time">5 min ago</div>
-																</div>
-																<div class="answer right">
-																	<div class="avatar">
-																		<img
-																			src="http://bootdey.com/img/Content/avatar/avatar1.png"
-																			alt="User name">
-																		<div class="status off"></div>
-																	</div>
-																	<div class="name">Alexander Herthic</div>
-																	<div class="text">It is a long established fact
-																		that a reader will be. Thanks Mate!</div>
-																	<div class="time">5 min ago</div>
-																</div>
-																<div class="answer left">
-																	<div class="avatar">
-																		<img
-																			src="http://bootdey.com/img/Content/avatar/avatar2.png"
-																			alt="User name">
-																		<div class="status offline"></div>
-																	</div>
-																	<div class="name">Alexander Herthic</div>
-																	<div class="text">Lorem ipsum dolor amet,
-																		consectetur adipisicing elit Lorem ipsum dolor amet,
-																		consectetur adipisicing elit Lorem ipsum dolor amet,
-																		consectetur adiping elit</div>
-																	<div class="time">5 min ago</div>
-																</div>
-																<div class="answer right">
-																	<div class="avatar">
-																		<img
-																			src="http://bootdey.com/img/Content/avatar/avatar1.png"
-																			alt="User name">
-																		<div class="status offline"></div>
-																	</div>
-																	<div class="name">Alexander Herthic</div>
-																	<div class="text">Lorem ipsum dolor amet,
-																		consectetur adipisicing elit Lorem ipsum dolor amet,
-																		consectetur adipisicing elit Lorem ipsum dolor amet,
-																		consectetur adiping elit</div>
-																	<div class="time">5 min ago</div>
-																</div>
-																<div class="answer left">
-																	<div class="avatar">
-																		<img
-																			src="http://bootdey.com/img/Content/avatar/avatar2.png"
-																			alt="User name">
-																		<div class="status online"></div>
-																	</div>
-																	<div class="name">Alexander Herthic</div>
-																	<div class="text">...</div>
-																	<div class="time">5 min ago</div>
-																</div>
-																<div class="answer right">
-																	<div class="avatar">
-																		<img
-																			src="http://bootdey.com/img/Content/avatar/avatar1.png"
-																			alt="User name">
-																		<div class="status busy"></div>
-																	</div>
-																	<div class="name">Alexander Herthic</div>
-																	<div class="text">It is a long established fact
-																		that a reader will be. Thanks Mate!</div>
-																	<div class="time">5 min ago</div>
-																</div>
-																<div class="answer right">
-																	<div class="avatar">
-																		<img
-																			src="http://bootdey.com/img/Content/avatar/avatar2.png"
-																			alt="User name">
-																		<div class="status off"></div>
-																	</div>
-																	<div class="name">Alexander Herthic</div>
-																	<div class="text">It is a long established fact
-																		that a reader will be. Thanks Mate!</div>
-																	<div class="time">5 min ago</div>
 																</div>
 																<div class="answer-add">
-																	<input placeholder="Write a message"> <span
-																		class="answer-btn answer-btn-2"></span>
+																	<input type="text" placeholder="Write a message"
+																		id="messageinput">
+																	<div>
+																		<button type="button" onclick="openSocket();">Open</button>
+																		<button type="button" onclick="send();">Send</button>
+																		<button type="button" onclick="closeSocket();">Close</button>
+																	</div>
 																</div>
+																<script type="text/javascript">
+																	var webSocket;
+																	var messages = document
+																			.getElementById("messages");
+
+																	function openSocket() {
+																		// Ensures only one connection is open at a time
+																		if (webSocket !== undefined
+																				&& webSocket.readyState !== WebSocket.CLOSED) {
+																			writeResponse("WebSocket is already opened.");
+																			return;
+																		}
+																		// Create a new instance of the websocket
+																		webSocket = new WebSocket(
+																				"ws://localhost:8080/Tinder/chat");
+
+																		/**
+																		 * Binds functions to the listeners for the websocket.
+																		 */
+																		webSocket.onopen = function(
+																				event) {
+																			// For reasons I can't determine, onopen gets called twice
+																			// and the first time event.data is undefined.
+																			// Leave a comment if you know the answer.
+																			if (event.data === undefined)
+																				return;
+
+																			writeResponse(event.data);
+																		};
+
+																		webSocket.onmessage = function(
+																				event) {
+																			writeResponse(event.data);
+																		};
+
+																		webSocket.onclose = function(
+																				event) {
+																			writeResponse("Connection closed");
+																		};
+																	}
+
+																	/**
+																	 * Sends the value of the text input to the server
+																	 */
+																	function send() {
+																		var text = document
+																				.getElementById("messageinput").value;
+																		webSocket
+																				.send(text);
+																	}
+
+																	function closeSocket() {
+																		webSocket
+																				.close();
+																	}
+
+																	function writeResponse(
+																			text) {
+																		messages.innerHTML += "<div class='answer right'>" +
+																		"<div class='avatar'>" +
+																		"<img src='http://bootdey.com/img/Content/avatar/avatar2.png' alt='User name'>" +
+																		"<div class='status off'></div>"+
+																	
+																			"</div><div class='name'Tuk ti e imeto</div> " + "<div class='text'>" + text + "</div>"
+																				+ "<div class='time'>5 min ago</div></div>"
+
+																	}
+																</script>
 															</div>
 														</div>
 													</div>
