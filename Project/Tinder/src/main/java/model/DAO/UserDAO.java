@@ -5,6 +5,7 @@ import java.security.NoSuchAlgorithmException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,6 +14,8 @@ import model.POJO.User;
 
 public class UserDAO {
 
+	private static final String SET_DISCOVERY_SETTINGS = "UPDATE tinder.users SET wants_male=?, wants_female=?, search_distance=?, min_desired_age=?, max_desired_age=? WHERE id=? ;";
+	private static final String DELETE_USER = "delete from tinder.users WHERE username = ? ;";
 	private static final String REGISTER_USER = "INSERT INTO tinder.users "
 			+ "values(null,?,?,?,?,'default',?,false,false,null,null,null,null,null);";
 	private static final String IS_USER_AND_PASS_EXISTING = "select count(id) from tinder.users where "
@@ -132,7 +135,52 @@ public class UserDAO {
 			ConnectionDispatcher.returnConnection(conn);
 		}
 	}
+	
+	public static void setUserDiscoverySettings(int id, boolean wantsMale,boolean wantsFemale,int searchdistance,
+			int min_age,int max_age) throws DBException {
+		Connection conn = null;
+		PreparedStatement st = null;
+		try {
+			conn = ConnectionDispatcher.getConnection();
+			st = (PreparedStatement) conn.prepareStatement(SET_DISCOVERY_SETTINGS);
+			st.setBoolean(1, wantsMale);
+			st.setBoolean(2, wantsFemale);
+			st.setInt(3, searchdistance);
+			st.setInt(4, min_age);
+			st.setInt(5, max_age);
+			st.setInt(6, id);
+			st.executeUpdate();
 
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DBException("Something went wrong with the Database.", e);
+			// TODO
+		} finally {
+			ConnectionDispatcher.returnConnection(conn);
+		}
+	}
+
+	public static void deleteUser(String username) throws DBException {
+		Connection conn = null;
+		PreparedStatement st = null;
+		try {
+			User user = UserDAO.getUser(username);
+			if (user!=null) {
+				conn = ConnectionDispatcher.getConnection();
+				st = conn.prepareStatement(DELETE_USER);
+				st.setString(1, username);
+				st.executeUpdate();
+			}
+
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw new DBException("Something went wrong with the Database.", e);
+			// TODO
+		} finally {
+			ConnectionDispatcher.returnConnection(conn);
+		}
+	}
+	
 	public static String calculateHash(String password) throws NoSuchAlgorithmException {
 		MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
 		digest.update(password.getBytes());

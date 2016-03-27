@@ -42,7 +42,7 @@
 </head>
 
 
-<body class="nav-md">
+<body class="nav-md" onload="worker('None')">
 	<div class="container body">
 
 		<div class="main_container">
@@ -71,35 +71,12 @@
 											<div id="myCarousel" class="carousel slide"
 												data-ride="carousel">
 												<!-- Indicators -->
-												<ol class="carousel-indicators">
-													<li data-target="#myCarousel" data-slide-to="0"
-														class="active"></li>
-													<li data-target="#myCarousel" data-slide-to="1"></li>
-													<li data-target="#myCarousel" data-slide-to="2"></li>
-													<li data-target="#myCarousel" data-slide-to="3"></li>
+												<ol id="gallery-slides" class="carousel-indicators">
 												</ol>
 
 												<!-- Wrapper for slides -->
-												<div class="carousel-inner" role="listbox">
-													<div class="item active">
-														<img src="images/prod1.jpg" alt="1" width="460"
-															height="345">
-													</div>
-
-													<div class="item">
-														<img src="images/prod2.jpg" alt="2" width="460"
-															height="345">
-													</div>
-
-													<div class="item">
-														<img src="images/prod3.jpg" alt="3" width="460"
-															height="345">
-													</div>
-
-													<div class="item">
-														<img src="images/prod4.jpg" alt="4" width="460"
-															height="345">
-													</div>
+												<div id="gallery-images" class="carousel-inner"
+													role="listbox">
 												</div>
 
 												<!-- Left and right controls -->
@@ -114,9 +91,9 @@
 												</a>
 											</div>
 										</div>
-										<button onclick="worker()" class="LDButton"
+										<button onclick="worker('disLike')" class="LDButton"
 											style="float: right;" type="button">Dislike</button>
-										<button onclick="worker()" class="LDButton"
+										<button onclick="worker('Like')" class="LDButton"
 											style="float: left;" type="button">Like</button>
 									</div>
 								</div>
@@ -144,14 +121,52 @@
 		NProgress.done();
 	</script>
 	<script type="text/javascript">
-		function worker() {
-			$.ajax({
-				url : 'LikeDislikeService',
-				type: 'POST',
-				data: {action:'Like'}
-			}).done(function(response){
-				console.log(response);
-			});
+		function worker(action) {
+			$
+					.ajax({
+						url : 'LikeDislikeService',
+						type : 'POST',
+						data : "action=" + action
+					})
+					.done(
+							function(response) {
+								console.log(response);
+								$('#gallery-slides').empty();
+								$('#gallery-images').empty();
+								var i;
+								for (i = 0; i < response.photos.length; i+=1) {
+									if (i == 0) {
+										$('#gallery-slides')
+												.append(
+														"<li data-target=\"#myCarousel\" data-slide-to=\""+
+														i +"\" class=\"active\"></li>");
+									} else {
+										$('#gallery-slides')
+												.append(
+														"<li data-target=\"#myCarousel\" data-slide-to=\""+
+														i + "\"></li>");
+									}
+								}
+								for (i = 0; i < response.photos.length; i+=1) {
+									if (i == 0) {
+										$('#gallery-images')
+												.append(
+														"<div class=\"item active\">" +
+														"<img src=\"images/" + response.photos[i] +
+														"\" alt=\"" + (i+1) +"\" width=\"460\"" +
+														"height=\"345\">" +
+														"</div>");
+									} else {
+										$('#gallery-images')
+												.append(
+														"<div class=\"item\">" +
+														"<img src=\"images/" + response.photos[i] + 
+														"\" alt=\"" + (i+1) +"\" width=\"460\"" +
+														"height=\"345\">" +
+														"</div>");
+									}
+								}
+							});
 		};
 	</script>
 </body>
