@@ -32,7 +32,6 @@ public class SignIn extends HttpServlet {
 				User user = UserDAO.getUser(username);
 				session.setAttribute("user", user);
 				session.setAttribute("userCandidates", new LinkedList<User>());
-				session.setAttribute("fistCandidatePhotos", new LinkedList<String>());
 				response.sendRedirect("./Home");
 			} else {
 				throw new ServletException("Ivalid username or password! :" + username + " " + password);

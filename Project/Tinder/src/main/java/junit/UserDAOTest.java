@@ -101,5 +101,36 @@ public class UserDAOTest {
 		assertEquals(MIN_DESIRED_AGE, afterUpdate.getMinDesiredAge());
 		deleteUser();
 	}
+	
+	@Test
+	public void testGetNearbyUsers() throws DBException{
+		//user1 from Sofia
+		UserDAO.registerUser("testUser1", "pass", "testUser1@abv.bg", true, 22);
+		UserDAO.setLocation("testUser1", 65, 17);
+		//User2 from Pleven
+		UserDAO.registerUser("testUser2", "pass", "testUser2@abv.bg", true, 22);
+		UserDAO.setLocation("testUser2", 65, 17);
+		//User3 from Varna
+		UserDAO.registerUser("testUser3", "pass", "testUser3@abv.bg", true, 22);
+		UserDAO.setLocation("testUser3", 65, 17);
+		
+		//getting users
+		User testUser1 = UserDAO.getUser("testUser1");
+		User testUser2 = UserDAO.getUser("testUser2");
+		User testUser3 = UserDAO.getUser("testUser3");
+		
+		//setting discovery settings
+		UserDAO.setUserDiscoverySettings(testUser1.getId(), true, true, 500, 18, 50);
+		UserDAO.setUserDiscoverySettings(testUser2.getId(), true, true, 500, 18, 50);
+		UserDAO.setUserDiscoverySettings(testUser3.getId(), true, true, 500, 18, 50);
+		
+		assertEquals(UserDAO.getFirstThreeNearbyUsers(testUser1.getUsername()).size(),2);
+		
+		//deleting users
+		UserDAO.deleteUser(testUser1.getUsername());
+		UserDAO.deleteUser(testUser2.getUsername());
+		UserDAO.deleteUser(testUser3.getUsername());
+		
+	}
 
 }

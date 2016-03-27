@@ -2,6 +2,8 @@ package controllers;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.lang.reflect.Array;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedList;
@@ -15,6 +17,9 @@ import javax.servlet.http.HttpServletResponse;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import com.google.gson.Gson;
+import com.google.gson.internal.bind.CollectionTypeAdapterFactory;
 
 import exceptions.DBException;
 import exceptions.UnauthorizedException;
@@ -33,11 +38,11 @@ public class LikeDislikeService extends HttpServlet {
 			throws ServletException, IOException {
 		try {
 			response.setContentType("application/json");
-			User user = (User) request.getSession().getAttribute("user");
-			if (user == null) {
+			if (request.getSession(false) == null) {
 				throw new UnauthorizedException("The user is not logged in.");
 			}
-
+			
+			User user = (User) request.getSession(false).getAttribute("user");
 			@SuppressWarnings("unchecked")
 			List<User> users = (List<User>) request.getSession().getAttribute("userCandidates");
 			if (users.size() == 0) {
@@ -68,11 +73,11 @@ public class LikeDislikeService extends HttpServlet {
 			throws DBException, IOException {
 		JSONObject json = new JSONObject();
 		if(users.size()==0){
-			json.put("photos", new JSONArray(new LinkedList<String>().add("nousers.jpg")));
+			json.put("photos", Arrays.asList("nousers.jpg"));
 		}
 		else{
-			System.out.println(users.get(0));
-			json.put("photos", new JSONArray(UserDAO.getAllPhotosOfUser(users.get(0).getUsername())));
+			System.out.println(UserDAO.getAllPhotosOfUser(users.get(0).getUsername()));
+			json.put("photos", UserDAO.getAllPhotosOfUser(users.get(0).getUsername()));
 		}
 		PrintWriter pw = response.getWriter();
 		System.out.println(json);
