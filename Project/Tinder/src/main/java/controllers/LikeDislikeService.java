@@ -76,11 +76,9 @@ public class LikeDislikeService extends HttpServlet {
 			json.put("photos", Arrays.asList("nousers.jpg"));
 		}
 		else{
-			System.out.println(UserDAO.getAllPhotosOfUser(users.get(0).getUsername()));
 			json.put("photos", UserDAO.getAllPhotosOfUser(users.get(0).getUsername()));
 		}
 		PrintWriter pw = response.getWriter();
-		System.out.println(json);
 		pw.print(json);
 		pw.flush();
 	}
@@ -103,7 +101,6 @@ public class LikeDislikeService extends HttpServlet {
 		} catch (DBException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Users added: size-"+newUsers.size());
 		for(User u : newUsers){
 			System.out.println(u.getUsername());
 		}
