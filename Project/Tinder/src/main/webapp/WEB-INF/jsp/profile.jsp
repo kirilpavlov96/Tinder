@@ -27,15 +27,19 @@
 	href="css/maps/jquery-jvectormap-2.0.3.css" />
 <link href="css/icheck/flat/green.css" rel="stylesheet" />
 <link href="css/floatexamples.css" rel="stylesheet" type="text/css" />
+<script src="http://code.jquery.com/jquery-2.2.2.js"
+	integrity="sha256-4/zUCqiq0kqxhZIyp4G0Gk+AOtCJsY1TA00k5ClsZYE="
+	crossorigin="anonymous"></script>
 
 <script src="js/jquery.min.js"></script>
 <script src="js/nprogress.js"></script>
 
 
+
 </head>
 
 
-<body class="nav-md">
+<body class="nav-md" onload="photoLoader();locationLoader();">
 	<div class="container body">
 		<div class="main_container">
 			<jsp:include page="sideMenu.jsp" />
@@ -61,7 +65,7 @@
 										<div id="crop-avatar">
 											<!-- Current avatar -->
 											<div class="avatar-view" title="Change the avatar">
-												<img src="images/img.jpg" alt="Avatar">
+												<img src=<c:out value="images/${sessionScope.user.avatarName}"></c:out> alt="Avatar">
 											</div>
 
 											<!-- Cropping modal -->
@@ -150,138 +154,40 @@
 										<!-- end of image cropping -->
 
 									</div>
-									<h3>Vancho Bozdugana</h3>
+									<h3><c:out value="${sessionScope.user.username}"></c:out></h3>
 
 									<ul class="list-unstyled user_data">
-										<li><i class="fa fa-map-marker user-profile-icon"></i>
-											San Francisco, California, USA</li>
+										<li id="user-location">
+										</li>
 
 										<li><i class="fa fa-briefcase user-profile-icon"></i>
-											Software Engineer</li>
-
-										<li class="m-top-xs"><i
-											class="fa fa-external-link user-profile-icon"></i> <a
-											href="http://www.kimlabs.com/profile/" target="_blank">www.kimlabs.com</a>
+											<c:out value="${sessionScope.user.email }"></c:out>
 										</li>
+
 									</ul>
 
 									<a class="btn btn-success"><i class="fa fa-edit m-right-xs"></i>Edit
 										Profile</a> <br />
-
-									<!-- start skills -->
-									<h4>Skills</h4>
-									<ul class="list-unstyled user_data">
-										<li>
-											<p>Web Applications</p>
-											<div class="progress progress_sm">
-												<div class="progress-bar bg-green" role="progressbar"
-													data-transitiongoal="50"></div>
-											</div>
-										</li>
-										<li>
-											<p>Website Design</p>
-											<div class="progress progress_sm">
-												<div class="progress-bar bg-green" role="progressbar"
-													data-transitiongoal="70"></div>
-											</div>
-										</li>
-										<li>
-											<p>Automation & Testing</p>
-											<div class="progress progress_sm">
-												<div class="progress-bar bg-green" role="progressbar"
-													data-transitiongoal="30"></div>
-											</div>
-										</li>
-										<li>
-											<p>UI / UX</p>
-											<div class="progress progress_sm">
-												<div class="progress-bar bg-green" role="progressbar"
-													data-transitiongoal="50"></div>
-											</div>
-										</li>
-									</ul>
-									<!-- end of skills -->
+									
 								</div>
 
-								<div class="col-md-9 col-sm-9 col-xs-12">
-									<h2>User Pictures</h2>
-									<div class="col-md-55">
-										<div class="thumbnail">
-											<div class="image view view-first">
-												<img style="width: 100%; display: block;" src="images/4.jpg"
-													alt="image" />
-												<div class="mask">
-													<p>Your Text</p>
-													<div class="tools tools-bottom">
-														<a href="#"><i class="fa fa-link"></i></a> <a href="#"><i
-															class="fa fa-pencil"></i></a> <a href="#"><i
-															class="fa fa-times"></i></a>
+								<div id="user-photos" class="col-md-9 col-sm-9 col-xs-12">
+									<!-- <div class="col-md-55">
+											<div class="thumbnail">
+												<div class="image view view-first">
+													<img style="width: 100%; display: block;" src="images/4.jpg"
+														alt="image" />
+													<div class="mask">
+														<p>Your Text</p>
+														<div class="tools tools-bottom">
+															<a href="#"><i class="fa fa-link"></i></a> 
+															<a href="#"><i class="fa fa-pencil"></i></a>
+															<a href="#"><i class="fa fa-times"></i></a>
+														</div>
 													</div>
 												</div>
 											</div>
-											<div class="caption">
-												<p>Snow and Ice Incoming for the South</p>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-55">
-										<div class="thumbnail">
-											<div class="image view view-first">
-												<img style="width: 100%; display: block;" src="images/4.jpg"
-													alt="image" />
-												<div class="mask">
-													<p>Your Text</p>
-													<div class="tools tools-bottom">
-														<a href="#"><i class="fa fa-link"></i></a> <a href="#"><i
-															class="fa fa-pencil"></i></a> <a href="#"><i
-															class="fa fa-times"></i></a>
-													</div>
-												</div>
-											</div>
-											<div class="caption">
-												<p>Snow and Ice Incoming for the South</p>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-55">
-										<div class="thumbnail">
-											<div class="image view view-first">
-												<img style="width: 100%; display: block;" src="images/4.jpg"
-													alt="image" />
-												<div class="mask">
-													<p>Your Text</p>
-													<div class="tools tools-bottom">
-														<a href="#"><i class="fa fa-link"></i></a> <a href="#"><i
-															class="fa fa-pencil"></i></a> <a href="#"><i
-															class="fa fa-times"></i></a>
-													</div>
-												</div>
-											</div>
-											<div class="caption">
-												<p>Snow and Ice Incoming for the South</p>
-											</div>
-										</div>
-									</div>
-									<div class="col-md-55">
-										<div class="thumbnail">
-											<div class="image view view-first">
-												<img style="width: 100%; display: block;" src="images/4.jpg"
-													alt="image" />
-												<div class="mask">
-													<p>Your Text</p>
-													<div class="tools tools-bottom">
-														<a href="#"><i class="fa fa-link"></i></a> <a href="#"><i
-															class="fa fa-pencil"></i></a> <a href="#"><i
-															class="fa fa-times"></i></a>
-													</div>
-												</div>
-											</div>
-											<div class="caption">
-												<p>Snow and Ice Incoming for the South</p>
-											</div>
-										</div>
-									</div>
-								</div>
+										</div>-->
 
 							</div>
 						</div>
@@ -311,6 +217,77 @@
 	
 	<script>
 		NProgress.done();
+	</script>
+	<script type="text/javascript"> 
+		function photoLoader() {
+			$
+					.ajax({
+						url : 'UserPhotosService',
+						type: 'POST',
+						data: "action=none"
+					})
+					.done(
+							function(response) {
+								$('#user-photos').empty();
+								$('#user-photos').append("<h2>User Photos</h2>");
+								var i;
+								for (i = 0; i < response.photos.length; i+=1) {
+									$('#user-photos').append(
+									"<div class=\"col-md-55\">" +
+									"	<div class=\"thumbnail\">" +
+									"		<div class=\"image view view-first\">" + 
+									"			<img style=\"width: 100%; display: block;\" src=\"images/"+response.photos[i]+"\" alt=\"image\" />" +
+									"			<div class=\"mask\">" +
+									"				<p>Edit</p>" +
+									"				<div class=\"tools tools-bottom\">" +
+									"					<a href=\"#\"><i class=\"fa fa-link\"></i></a>" +
+									"					<a href=\"#\"><i class=\"fa fa-times\"></i></a>" +
+									"				</div>" +
+									"			</div>" +
+									"		</div>" +
+									"		<div class=\"caption\">"+
+			                        " 			<p></p>"+
+				                    "   	</div>" +
+									"	</div>" +
+									"</div>");
+									/*for (i = 0; i < response.photos.length; i+=1) {
+										$('#user-photos').append(
+										"			<img style=\"width: 20%;\" src=\"images/"+response.photos[i]+"\" alt=\"image\" />"
+									);
+									}*/
+								}
+							});
+		};
+		function locationLoader() {
+			$
+					.ajax({
+						url : 'https://maps.googleapis.com/maps/api/geocode/json',
+						type: 'GET',
+						data: "latlng="+'<c:out value="${sessionScope.user.latitude}" />'+","+
+						'<c:out value="${sessionScope.user.longitude}"/>'+"&key=AIzaSyCNu5m_VtOStftb0xxeu26lK9nxWokDzl4"
+					})
+					.done(
+							function(response) {
+								$('#user-location').empty();
+								$('#user-location').append("<i class=\"fa fa-map-marker user-profile-icon\"></i> " + 
+										response.results[0].formatted_address);
+							});
+		};
+		function profilePictureLoader(){
+			$
+			.ajax({
+				url : 'https://maps.googleapis.com/maps/api/geocode/json',
+				type: 'GET',
+				data: "latlng="+'<c:out value="${sessionScope.user.latitude}" />'+","+
+				'<c:out value="${sessionScope.user.longitude}"/>'+"&key=AIzaSyCNu5m_VtOStftb0xxeu26lK9nxWokDzl4"
+			})
+			.done(
+					function(response) {
+						$('#user-location').empty();
+						$('#user-location').append("<i class=\"fa fa-map-marker user-profile-icon\"></i> " + 
+								response.results[0].formatted_address);
+					});
+		}
 	</script>
 	<!-- /datepicker -->
 	<!-- /footer content -->
