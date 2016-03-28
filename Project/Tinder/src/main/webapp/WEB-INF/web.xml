@@ -71,17 +71,14 @@
   	<servlet-class>controllers.LikeDislikeService</servlet-class>
   </servlet>
   <servlet>
-<<<<<<< HEAD
   	<servlet-name>MessagesService</servlet-name>
   	<display-name>MessagesService</display-name>
   	<description></description>
   	<servlet-class>controllers.MessagesService</servlet-class>
-=======
   	<servlet-name>UserPhotosService</servlet-name>
   	<display-name>UserPhotosService</display-name>
   	<description></description>
   	<servlet-class>controllers.UserPhotosService</servlet-class>
->>>>>>> b19e6719aab3db9dc7f8ad17df1837c5afc1afb7
   </servlet>
   <servlet-mapping>
   	<servlet-name>SignIn</servlet-name>
@@ -132,12 +129,9 @@
   	<url-pattern>/LikeDislikeService</url-pattern>
   </servlet-mapping>
   <servlet-mapping>
-<<<<<<< HEAD
   	<servlet-name>MessagesService</servlet-name>
   	<url-pattern>/MessagesService</url-pattern>
-=======
   	<servlet-name>UserPhotosService</servlet-name>
   	<url-pattern>/UserPhotosService</url-pattern>
->>>>>>> b19e6719aab3db9dc7f8ad17df1837c5afc1afb7
   </servlet-mapping>
 </web-app>
