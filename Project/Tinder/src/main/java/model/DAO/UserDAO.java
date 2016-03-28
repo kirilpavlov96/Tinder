@@ -14,22 +14,25 @@ import model.POJO.User;
 
 public class UserDAO {
 
+	private static final String CHECK_EXISTING_EMAIL = "select count(id) from tinder.users where BINARY email = BINARY ?";
+	private static final String CHECK_EXISTING_USERNAME = "select count(id) from tinder.users where BINARY username = BINARY ?";
 	private static final String SET_DISCOVERY_SETTINGS = "UPDATE tinder.users SET wants_male=?, wants_female=?, search_distance=?, min_desired_age=?, max_desired_age=? WHERE id=? ;";
 	private static final String DELETE_USER = "delete from tinder.users WHERE username = ? ;";
 	private static final String REGISTER_USER = "INSERT INTO tinder.users "
 			+ "values(null,?,?,?,?,'default',?,false,false,null,null,null,null,null);";
 	private static final String IS_USER_AND_PASS_EXISTING = "select count(id) from tinder.users where "
 			+ "username = ? and password_hash = ?";
-	private static final String IS_USER_EXISTING = "select count(id) from tinder.users where " + "username = ?";
+	private static final String IS_USER_EXISTING = "select count(id) from tinder.users where "
+			+ "BINARY username = BINARY ?";
 	private static final String GET_USER = "select * from tinder.users where username = ?";
 	private static final String CHANGE_LOCATION = "UPDATE tinder.users " + "SET latitude = ?, longitude = ? "
 			+ "WHERE id = ?;";
 	private static final String FIND_CLOSE_USERS = "select username from tinder.users" + " where age between ? and ?"
 			+ " and 6371.009*sqrt(pow(radians(? - latitude),2) + pow(cos((?+latitude)/2)*(radians(? - longitude)),2)) <= ?"
 			+ " and username not in(" + "select username from tinder.dislikes d"
-			+ " right join tinder.users u on (d.disliked_id=u.id)" + " where d.disliker_id = ?)" + " and username not in ("
-			+ " select username from tinder.likes l" + " right join tinder.users u on (l.liked_id=u.id)" + " where l.liker_id = ?)"
-			+ " and id != ? limit 3;";
+			+ " right join tinder.users u on (d.disliked_id=u.id)" + " where d.disliker_id = ?)"
+			+ " and username not in (" + " select username from tinder.likes l"
+			+ " right join tinder.users u on (l.liked_id=u.id)" + " where l.liker_id = ?)" + " and id != ? limit 3;";
 	private static final String FIND_PICTURES_OF_USER = "SELECT * FROM tinder.pictures where owner_id = ?;";
 	private static final String LIKE_USER = "insert into tinder.likes values(null,?,?);";
 	private static final String DISLIKE_USER = "insert into tinder.dislikes values(null,?,?);";
@@ -135,9 +138,9 @@ public class UserDAO {
 			ConnectionDispatcher.returnConnection(conn);
 		}
 	}
-	
-	public static void setUserDiscoverySettings(int id, boolean wantsMale,boolean wantsFemale,int searchdistance,
-			int min_age,int max_age) throws DBException {
+
+	public static void setUserDiscoverySettings(int id, boolean wantsMale, boolean wantsFemale, int searchdistance,
+			int min_age, int max_age) throws DBException {
 		Connection conn = null;
 		PreparedStatement st = null;
 		try {
@@ -165,7 +168,7 @@ public class UserDAO {
 		PreparedStatement st = null;
 		try {
 			User user = UserDAO.getUser(username);
-			if (user!=null) {
+			if (user != null) {
 				conn = ConnectionDispatcher.getConnection();
 				st = conn.prepareStatement(DELETE_USER);
 				st.setString(1, username);
@@ -180,7 +183,7 @@ public class UserDAO {
 			ConnectionDispatcher.returnConnection(conn);
 		}
 	}
-	
+
 	public static String calculateHash(String password) throws NoSuchAlgorithmException {
 		MessageDigest digest = java.security.MessageDigest.getInstance("MD5");
 		digest.update(password.getBytes());
@@ -334,5 +337,49 @@ public class UserDAO {
 			ConnectionDispatcher.returnConnection(conn);
 		}
 		return true;
+	}
+
+	public static boolean isUsernameExisting(String username) throws DBException {
+		Connection conn = null;
+		PreparedStatement st = null;
+		try {
+			conn = ConnectionDispatcher.getConnection();
+			st = conn.prepareStatement(CHECK_EXISTING_USERNAME);
+			st.setString(1, username);
+			ResultSet rs = st.executeQuery();
+			rs.next();
+			if (rs.getInt(1) == 0) {
+				return false;
+			} else {
+				return true;
+			}
+
+		} catch (Exception e) {
+			throw new DBException("Something went wrong with the Database.", e);
+		} finally {
+			ConnectionDispatcher.returnConnection(conn);
+		}
+	}
+
+	public static boolean isEmailExisting(String email) throws DBException {
+		Connection conn = null;
+		PreparedStatement st = null;
+		try {
+			conn = ConnectionDispatcher.getConnection();
+			st = conn.prepareStatement(CHECK_EXISTING_EMAIL);
+			st.setString(1, email);
+			ResultSet rs = st.executeQuery();
+			rs.next();
+			if (rs.getInt(1) == 0) {
+				return false;
+			} else {
+				return true;
+			}
+
+		} catch (Exception e) {
+			throw new DBException("Something went wrong with the Database.", e);
+		} finally {
+			ConnectionDispatcher.returnConnection(conn);
+		}
 	}
 }

@@ -32,7 +32,7 @@
 
 </head>
 
-<body style="background: #F7F7F7;" onload="getLocation();">
+<body style="background: #F7F7F7;" onload="getLocation(); checker();">
 
 	<div class="">
 		<a class="hiddenanchor" id="toregister"></a> <a class="hiddenanchor"
@@ -93,13 +93,11 @@
 							<input type="password" name="password" class="form-control"
 								placeholder="Password" required />
 						</div>
-						<div >
-							<select 
-								class="form-control" name="gender">
+						<div>
+							<select class="form-control" name="gender">
 								<option>male</option>
 								<option>female</option>
-							</select> 
-							<br>
+							</select> <br>
 						</div>
 						<div>
 							<input type="number" name="age" class="form-control"
@@ -170,6 +168,19 @@
 				alert("Sorry, browser does not support geolocation!");
 			}
 		}
+		
+		function checker() {
+			$
+					.ajax({
+						url : 'SignUpValidationService',
+						type : 'POST',
+						data : "username=kiko&age=120&email=asdasdasdasdasdsa"
+					})
+					.done(
+							function(response) {
+								console.print(response);
+							});
+		};
 	</script>
 
 </body>

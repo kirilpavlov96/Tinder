@@ -76,6 +76,12 @@
   	<description></description>
   	<servlet-class>controllers.UserPhotosService</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>SignUpValidationService</servlet-name>
+  	<display-name>SignUpValidationService</display-name>
+  	<description></description>
+  	<servlet-class>controllers.SignUpValidationService</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>SignIn</servlet-name>
   	<url-pattern>/SignIn</url-pattern>
@@ -127,5 +133,9 @@
   <servlet-mapping>
   	<servlet-name>UserPhotosService</servlet-name>
   	<url-pattern>/UserPhotosService</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>SignUpValidationService</servlet-name>
+  	<url-pattern>/SignUpValidationService</url-pattern>
   </servlet-mapping>
 </web-app>
