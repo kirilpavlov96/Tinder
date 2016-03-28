@@ -70,6 +70,12 @@
   	<description></description>
   	<servlet-class>controllers.LikeDislikeService</servlet-class>
   </servlet>
+  <servlet>
+  	<servlet-name>MessagesService</servlet-name>
+  	<display-name>MessagesService</display-name>
+  	<description></description>
+  	<servlet-class>controllers.MessagesService</servlet-class>
+  </servlet>
   <servlet-mapping>
   	<servlet-name>SignIn</servlet-name>
   	<url-pattern>/SignIn</url-pattern>
@@ -117,5 +123,9 @@
   <servlet-mapping>
   	<servlet-name>LikeDislikeService</servlet-name>
   	<url-pattern>/LikeDislikeService</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>MessagesService</servlet-name>
+  	<url-pattern>/MessagesService</url-pattern>
   </servlet-mapping>
 </web-app>
