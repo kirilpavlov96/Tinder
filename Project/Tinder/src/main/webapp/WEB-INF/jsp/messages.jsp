@@ -71,7 +71,7 @@
 															style="overflow: hidden; outline: none;" tabindex="5000">
 															<div class="chat-users">
 																<h6>Online</h6>
-																<div class="user">
+																<div class="user" >
 																	<div class="avatar">
 																		<img
 																			src="http://bootdey.com/img/Content/avatar/avatar1.png"

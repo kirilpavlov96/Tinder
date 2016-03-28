@@ -138,4 +138,5 @@
   	<servlet-name>SignUpValidationService</servlet-name>
   	<url-pattern>/SignUpValidationService</url-pattern>
   </servlet-mapping>
+
 </web-app>

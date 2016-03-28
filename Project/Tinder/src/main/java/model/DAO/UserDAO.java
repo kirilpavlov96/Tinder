@@ -36,6 +36,7 @@ public class UserDAO {
 	private static final String FIND_PICTURES_OF_USER = "SELECT * FROM tinder.pictures where owner_id = ?;";
 	private static final String LIKE_USER = "insert into tinder.likes values(null,?,?);";
 	private static final String DISLIKE_USER = "insert into tinder.dislikes values(null,?,?);";
+	private static final String PASSWORD_REGEX = "[0-9a-zA-Z]{3,100}";
 
 	public static boolean isUserAndPassExisting(String username, String password) throws DBException {
 		Connection conn = null;
